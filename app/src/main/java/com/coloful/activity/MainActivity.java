@@ -1,8 +1,10 @@
-package com.coloful;
+package com.coloful.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.coloful.R;
 
 public class MainActivity extends AppCompatActivity {
 

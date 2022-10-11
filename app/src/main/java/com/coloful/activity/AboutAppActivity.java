@@ -1,17 +1,18 @@
-package com.coloful;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.coloful.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class ChangeEmailActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.coloful.R;
+
+public class AboutAppActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_email);
+        setContentView(R.layout.activity_about_app);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

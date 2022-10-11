@@ -1,17 +1,23 @@
-package com.coloful;
+package com.coloful.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AboutAppActivity extends AppCompatActivity {
+import com.coloful.R;
+
+public class ChangeUsernameActivity extends AppCompatActivity {
+
+    EditText edUsername;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_app);
+        setContentView(R.layout.activity_change_username);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        edUsername = (EditText) findViewById(R.id.edit_username);
     }
 
     @Override
