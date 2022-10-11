@@ -11,13 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
+        android:layout_marginTop="47dp"
         android:layout_marginEnd="111dp"
+        android:layout_marginBottom="29dp"
         android:text="Quizlet"
+        android:textColor="#001797"
         android:textSize="60sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="47dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/bt_signup"
@@ -25,24 +29,12 @@
         android:layout_height="50dp"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="56dp"
+        android:layout_marginBottom="26dp"
         android:text="Sign up for free"
+        app:layout_constraintBottom_toTopOf="@+id/bt_signin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="577dp" />
-
-    <Button
-        android:id="@+id/bt_signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginEnd="151dp"
-        android:text="Or log in"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="649dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -50,11 +42,13 @@
         android:layout_height="300dp"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="56dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="156dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/landing"
+        tools:srcCompat="@drawable/landing" />
 
     <TextView
         android:id="@+id/textView2"
@@ -62,13 +56,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="44dp"
+        android:layout_marginBottom="36dp"
         android:text="Over 90% of students who use\nQuizlet report higher grades"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bt_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="481dp" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bt_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="30dp"
+        android:text="OR SIGN IN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
