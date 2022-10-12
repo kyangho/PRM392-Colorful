@@ -10,4 +10,7 @@
     <color name="dark_blue">#00008B</color>
     <color name="bgBottomNavigation">#fe485a</color>
     <color name="Gainsboro">#DCDCDC</color>
+    <color name="dark_gray">#A9A9A9</color>
+    <color name="X11_ray">#BEBEBE</color>
+    <color name="primary">#4257b0</color>
 </resources>

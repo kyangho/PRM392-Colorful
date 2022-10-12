@@ -6,20 +6,30 @@
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/boder.xml" value="0.337" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/border.xml" value="0.337" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/border_2.xml" value="0.2955" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/border_bottom.xml" value="0.181" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/box_shadow.xml" value="0.196" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.2875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.2875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/ic_home.xml" value="0.2875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2875" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/text_search_border.xml" value="0.2955" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/drawable/text_search_border_1.xml" value="0.2955" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_about_app.xml" value="0.25364583333333335" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_action_bar_layout.xml" value="0.27575887131252674" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_change_email.xml" value="0.14144736842105263" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_change_password.xml" value="0.25364583333333335" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_change_username.xml" value="0.3359375" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_main.xml" value="0.16794871794871793" />
-        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_profile.xml" value="0.27533133817870886" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/fragment_change_username.xml" value="0.27533133817870886" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/fragment_home.xml" value="0.27575887131252674" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/fragment_search.xml" value="0.242520398912058" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/fragment_store.xml" value="0.27533133817870886" />
+        <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/layout/fragments/fragment_profile.xml" value="0.27575887131252674" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/menu/navigation_bar.xml" value="0.638671875" />
         <entry key="..\:/Learning/FPT/PRM392-Colorful/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2875" />
       </map>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
@@ -20,7 +21,9 @@ public class AboutAppActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, MainActivity.class);
+                MainActivity mainActivity = new MainActivity();
+                Intent intent = new Intent(this, mainActivity.getClass());
+                intent.putExtra("backScreen", "Profile");
                 startActivity(intent);
                 return true;
             default:

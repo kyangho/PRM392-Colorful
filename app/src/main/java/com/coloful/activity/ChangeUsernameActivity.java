@@ -8,10 +8,12 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
+import com.coloful.fragments.ProfileFragment;
 
 public class ChangeUsernameActivity extends AppCompatActivity {
 
     EditText edUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,9 @@ public class ChangeUsernameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, MainActivity.class);
+                MainActivity mainActivity = new MainActivity();
+                Intent intent = new Intent(this, mainActivity.getClass());
+                intent.putExtra("backScreen", "Profile");
                 startActivity(intent);
                 return true;
             default:

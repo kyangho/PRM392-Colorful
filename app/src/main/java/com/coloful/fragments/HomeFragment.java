@@ -1,4 +1,4 @@
-package fragments;
+package com.coloful.fragments;
 
 import android.os.Bundle;
 
