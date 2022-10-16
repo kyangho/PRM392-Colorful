@@ -1,4 +1,4 @@
-package com.coloful;
+package com.coloful.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.coloful.R;
 
 public class Landing extends AppCompatActivity {
 

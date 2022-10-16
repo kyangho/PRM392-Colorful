@@ -14,12 +14,12 @@
         android:theme="@style/Theme.PRM392_Colorful"
         tools:targetApi="31">
         <activity
-            android:name=".SignUp"
+            android:name=".activity.SignUp"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.PRM392_Colorful.NoActionBar" />
         <activity
-            android:name=".Landing"
+            android:name=".activity.Landing"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
