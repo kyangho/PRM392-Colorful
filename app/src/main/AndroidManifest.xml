@@ -19,6 +19,11 @@
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.PRM392_Colorful.NoActionBar" />
         <activity
+            android:name=".activity.SignIn"
+            android:exported="false"
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.PRM392_Colorful.NoActionBar" />
+        <activity
             android:name=".activity.Landing"
             android:exported="true">
             <intent-filter>

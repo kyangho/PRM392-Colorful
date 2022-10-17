@@ -1,8 +1,14 @@
 package com.coloful.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.coloful.model.Account;
+
+import java.util.UUID;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "DB_QUIZ";
@@ -14,12 +20,48 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sqlAccount = "CREATE TABLE IF NOT EXISTS account (id integer primary key, username TEXT not null, password TEXT not null, email TEXT not null)";
+        String sqlAccount = "CREATE TABLE IF NOT EXISTS account (id TEXT primary key, username TEXT not null, password TEXT not null, email TEXT not null, dob TEXT not null)";
         sqLiteDatabase.execSQL(sqlAccount);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    public Boolean insertAccount(Account account){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", account.getId());
+        contentValues.put("username", account.getUsername());
+        contentValues.put("password", account.getPassword());
+        contentValues.put("email", account.getEmail());
+        contentValues.put("dob", account.getDob());
+        long result = sqLiteDatabase.insert("account", null, contentValues);
+        if(result == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public Boolean checkUsernameAndEmail(Account account){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from account where username = ? or email = ?", new String[] {account.getUsername(), account.getEmail()});
+        if(cursor.getCount() > 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public Boolean checkAccount(Account account){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from account where username = ? and password = ?", new String[] {account.getUsername(), account.getPassword()});
+        if(cursor.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -21,8 +21,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="353dp"
+        android:id="@+id/ed_date"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="29dp"
@@ -42,12 +42,12 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-black"
         android:text="CREAT AN ACCOUNT"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDate"
+        app:layout_constraintBottom_toTopOf="@+id/ed_date"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="353dp"
+        android:id="@+id/ed_email"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="29dp"
@@ -60,8 +60,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="353dp"
+        android:id="@+id/ed_username"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="29dp"
@@ -71,12 +71,11 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/tv_username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="353dp"
+        android:id="@+id/ed_password"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="29dp"
@@ -86,7 +85,6 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/tv_password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -98,7 +96,7 @@
         android:layout_marginBottom="25dp"
         android:text="DATE OF BIRTH"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/ed_email"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -109,7 +107,7 @@
         android:layout_marginBottom="25dp"
         android:text="EMAIL"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/ed_username"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -120,7 +118,7 @@
         android:layout_marginBottom="25dp"
         android:text="USERNAME"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/ed_password"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

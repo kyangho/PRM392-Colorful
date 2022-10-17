@@ -26,5 +26,12 @@ public class Landing extends AppCompatActivity {
             }
         });
         bt_signin = (Button) findViewById(R.id.bt_signin);
+        bt_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signup = new Intent(Landing.this, SignIn.class);
+                startActivity(signup);
+            }
+        });
     }
 }
