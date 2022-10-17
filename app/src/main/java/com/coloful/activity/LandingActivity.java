@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.coloful.R;
 
-public class Landing extends AppCompatActivity {
+public class LandingActivity extends AppCompatActivity {
 
     Button bt_signup, bt_signin;
 
@@ -21,7 +21,7 @@ public class Landing extends AppCompatActivity {
         bt_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent signup = new Intent(Landing.this, SignUp.class);
+                Intent signup = new Intent(LandingActivity.this, SignUpActivity.class);
                 startActivity(signup);
             }
         });
@@ -29,7 +29,7 @@ public class Landing extends AppCompatActivity {
         bt_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent signup = new Intent(Landing.this, SignIn.class);
+                Intent signup = new Intent(LandingActivity.this, SignInActivity.class);
                 startActivity(signup);
             }
         });

@@ -1,0 +1,14 @@
+
+]
+java:S1192-"HDefine a constant instead of duplicating this literal "Profile" 3 times.(¥Ã ?
+f
+java:S1301,"KReplace this "switch" statement by "if" statements to increase readability.(÷éÑÕøÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—¦‹ã
+c
+java:S1874"HRemove this use of "OnNavigationItemSelectedListener"; it is deprecated.(Ï—³ûÿÿÿÿ
+f
+java:S1874$"KRemove this use of "setOnNavigationItemSelectedListener"; it is deprecated.(Ôàšøÿÿÿÿ
+6
+java:S2129*" Remove this "String" constructor(­­¶É
+<	java:S131:""Add a default case to this switch.(øå´¡ÿÿÿÿÿ

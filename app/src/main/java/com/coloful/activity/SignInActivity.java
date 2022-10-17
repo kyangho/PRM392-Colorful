@@ -12,11 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
 import com.coloful.dao.DBHelper;
+import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
 
-import java.util.UUID;
-
-public class SignIn extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
     ImageButton back;
     Button signin;
     EditText ed_username, ed_password, ed_email;
@@ -30,7 +29,7 @@ public class SignIn extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent landing = new Intent(SignIn.this, Landing.class);
+                Intent landing = new Intent(SignInActivity.this, LandingActivity.class);
                 startActivity(landing);
             }
         });
@@ -49,13 +48,15 @@ public class SignIn extends AppCompatActivity {
                 Account account = new Account(username, password);
 
                 if(username.equals("") || password.equals("")){
-                    Toast.makeText(SignIn.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                 }else{
                     Boolean isLogin = db.checkAccount(account);
                     if(isLogin){
-                        Toast.makeText(SignIn.this, "Welcome", Toast.LENGTH_SHORT).show();
+                        DataLocalManager.setAccount(account);
+                        Intent main = new Intent(SignInActivity.this, MainActivity.class);
+                        startActivity(main);
                     }else{
-                        Toast.makeText(SignIn.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

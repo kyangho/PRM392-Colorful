@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     ImageButton back;
     Button signup;
@@ -36,7 +36,7 @@ public class SignUp extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent landing = new Intent(SignUp.this, Landing.class);
+                Intent landing = new Intent(SignUpActivity.this, LandingActivity.class);
                 startActivity(landing);
             }
         });
@@ -126,15 +126,15 @@ public class SignUp extends AppCompatActivity {
                 Account account = new Account(id, username, password, email, dob);
 
                 if(dob.equals("") || email.equals("") ||username.equals("") ||password.equals("")){
-                    Toast.makeText(SignUp.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 }else{
                     if(!db.checkUsernameAndEmail(account)){
-                        Toast.makeText(SignUp.this, "Username or email was used", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Username or email was used", Toast.LENGTH_SHORT).show();
                     }else{
                         if(db.insertAccount(account)){
-                            Toast.makeText(SignUp.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(SignUp.this, "Registered fail", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Registered fail", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

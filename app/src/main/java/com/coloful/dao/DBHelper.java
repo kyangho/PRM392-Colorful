@@ -29,6 +29,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+    // Action with table account
     public Boolean insertAccount(Account account){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -64,4 +66,5 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+
 }
