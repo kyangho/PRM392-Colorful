@@ -14,6 +14,7 @@ import com.coloful.activity.AboutAppActivity;
 import com.coloful.activity.ChangeEmailActivity;
 import com.coloful.activity.ChangePasswordActivity;
 import com.coloful.activity.ChangeUsernameActivity;
+import com.coloful.activity.LogInActivity;
 import com.coloful.activity.MainActivity;
 
 /**
@@ -75,6 +76,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_log_out:
+                intent = new Intent(mainActivity, LogInActivity.class);
+                startActivity(intent);
                 break;
         }
     }
