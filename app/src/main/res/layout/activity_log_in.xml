@@ -35,7 +35,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTintMode="src_atop"
         android:ems="10"
-        android:hint="Enter your usernmame"
+        android:hint="Enter your username"
         android:inputType="text"
         android:background="@drawable/border_bottom_text"
         android:textCursorDrawable="@color/black"
