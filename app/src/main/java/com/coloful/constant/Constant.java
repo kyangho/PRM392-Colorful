@@ -2,6 +2,19 @@ package com.coloful.constant;
 
 public class Constant {
 
+    public enum System {
+        JSON_ACCOUNT("JSON_ACCOUNT");
+        private final String value;
+
+        System(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+    }
+
     public enum Account {
         ID("id"),
         USERNAME("username"),
@@ -21,7 +34,7 @@ public class Constant {
         }
     }
 
-    public enum Quiz{
+    public enum Quiz {
         ID("id"),
         TITLE("title"),
         AUTHOR("author"),
@@ -38,13 +51,12 @@ public class Constant {
         }
     }
 
-    public enum Question{
+    public enum Question {
         ID("id"),
         Content("question_content"),
         QUIZ_ID("quiz_id"),
         CORRECT_ANSWER("correct_answer"),
-        TABLE_NAME("Question")
-        ;
+        TABLE_NAME("Question");
         private final String value;
 
         Question(String value) {
@@ -56,7 +68,7 @@ public class Constant {
         }
     }
 
-    public enum Answer{
+    public enum Answer {
         ID("id"),
         Content("question_content"),
         QUES_ID("question_id"),
@@ -73,7 +85,7 @@ public class Constant {
         }
     }
 
-    public enum QuizAccount{
+    public enum QuizAccount {
         QUIZ_ID("quiz_id"),
         ACCOUNT_ID("account_id"),
         TABLE_NAME("Quiz_Account"),

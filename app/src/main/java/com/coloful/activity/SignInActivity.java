@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
+import com.coloful.dao.AccountDao;
 import com.coloful.dao.DBHelper;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
@@ -20,11 +21,13 @@ public class SignInActivity extends AppCompatActivity {
     Button signin;
     EditText ed_username, ed_password, ed_email;
     DBHelper db;
+    AccountDao accountDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        accountDao = new AccountDao();
         back = (ImageButton) findViewById(R.id.bt_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,15 +50,15 @@ public class SignInActivity extends AppCompatActivity {
 
                 Account account = new Account(username, password);
 
-                if(username.equals("") || password.equals("")){
+                if (username.equals("") || password.equals("")) {
                     Toast.makeText(SignInActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
-                }else{
-                    Boolean isLogin = db.checkAccount(account);
-                    if(isLogin){
+                } else {
+                    Account isLogin = accountDao.checkAccount(SignInActivity.this, account);
+                    if (isLogin != null) {
                         DataLocalManager.setAccount(account);
                         Intent main = new Intent(SignInActivity.this, MainActivity.class);
                         startActivity(main);
-                    }else{
+                    } else {
                         Toast.makeText(SignInActivity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
                     }
                 }

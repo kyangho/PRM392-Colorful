@@ -1,18 +1,21 @@
 package com.coloful.model;
 
 public class Account {
-    private String id;
+    private Integer id;
     private String username;
     private String password;
     private String email;
     private String dob;
+
+    public Account() {
+    }
 
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Account(String id, String username, String password, String email, String dob) {
+    public Account(Integer id, String username, String password, String email, String dob) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -20,11 +23,11 @@ public class Account {
         this.dob = dob;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

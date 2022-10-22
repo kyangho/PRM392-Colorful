@@ -7,24 +7,36 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
-import com.coloful.fragments.ProfileFragment;
+import com.coloful.dao.AccountDao;
+import com.coloful.datalocal.DataLocalManager;
+import com.coloful.model.Account;
 
 public class ChangeUsernameActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText edUsername;
+    Account account;
+    TextView msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_username);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        edUsername = (EditText) findViewById(R.id.edit_username);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4257b0")));
-        findViewById(R.id.btn_cancel).setOnClickListener(this::onClick);
+
+        DataLocalManager.init(this);
+        account = DataLocalManager.getAccount();
+
+        msg = findViewById(R.id.tv_msg_change_username);
+        edUsername = findViewById(R.id.edit_username);
+        edUsername.setText(account.getUsername());
+        findViewById(R.id.btn_cancel_change_username).setOnClickListener(this::onClick);
+        findViewById(R.id.btn_save_change_username).setOnClickListener(this::onClick);
     }
 
     @Override
@@ -47,12 +59,29 @@ public class ChangeUsernameActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.btn_cancel:
+            case R.id.btn_cancel_change_username:
                 intent = new Intent(this, MainActivity.class);
                 intent.putExtra("backScreen", "Profile");
                 startActivity(intent);
                 break;
-            case R.id.btn_save:
+            case R.id.btn_save_change_username:
+                String newUsername = edUsername.getText().toString();
+                if (newUsername.equalsIgnoreCase(account.getUsername())) {
+                    msg.setText("Username not change, please enter new username if user want to change!");
+                } else {
+                    AccountDao accountDao = new AccountDao();
+                    if (accountDao.checkUsernameExisted(ChangeUsernameActivity.this, newUsername)) {
+                        msg.setText("Username existed. Choose other username!");
+                    } else {
+                        if (accountDao.updateUsername(ChangeUsernameActivity.this, newUsername, account.getId())) {
+                            msg.setText("Change username success!");
+                            account.setUsername(newUsername);
+                            DataLocalManager.setAccount(account);
+                        } else {
+                            msg.setText("Change username failed, please try again!");
+                        }
+                    }
+                }
                 break;
 
         }

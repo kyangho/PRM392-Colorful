@@ -1,6 +1,7 @@
 package com.coloful.datalocal;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.coloful.model.Account;
 import com.google.gson.Gson;
@@ -29,10 +30,17 @@ public class DataLocalManager {
         DataLocalManager.getInstance().sessionManager.putStringValue(JSON_ACCOUNT, jsonAccount);
     }
 
-    public static Account getAccount() throws Exception{
+    public static Account getAccount(){
         String jsonAccount = DataLocalManager.getInstance().sessionManager.getStringValue(JSON_ACCOUNT);
+        if (jsonAccount == null || jsonAccount.trim().length() == 0){
+            return null;
+        }
         Gson gson = new Gson();
         Account account = gson.fromJson(jsonAccount, Account.class);
         return account;
+    }
+
+    public static void removeSession(){
+        DataLocalManager.getInstance().sessionManager.remove();
     }
 }

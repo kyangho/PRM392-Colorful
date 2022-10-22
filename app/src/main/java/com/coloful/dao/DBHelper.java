@@ -21,53 +21,45 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sqlAccount = "CREATE TABLE IF NOT EXISTS account (id TEXT primary key, username TEXT not null, password TEXT not null, email TEXT not null, dob TEXT not null)";
+        String sqlAccount = "CREATE TABLE IF NOT EXISTS Account (id integer primary key autoincrement, username TEXT not null, password TEXT not null, email TEXT not null, dob TEXT not null)";
         sqLiteDatabase.execSQL(sqlAccount);
+
+        String sqlQuiz = "CREATE TABLE IF NOT EXISTS " + Constant.Quiz.TABLE_NAME.getValue()
+                + " (id integer primary key autoincrement, title TEXT not null, author TEXT not null)";
+        sqLiteDatabase.execSQL(sqlQuiz);
+
+        String sqlQuestion = "CREATE TABLE IF NOT EXISTS " + Constant.Question.TABLE_NAME.getValue()
+                + " (id integer primary key autoincrement, question_content TEXT not null," +
+                " quiz_id TEXT not null, correct_answer TEXT not null)";
+        sqLiteDatabase.execSQL(sqlQuestion);
+
+        String sqlAnswer = "CREATE TABLE IF NOT EXISTS " + Constant.Answer.TABLE_NAME.getValue()
+                + " (id integer primary key autoincrement, question_content TEXT not null," +
+                " question_id TEXT not null)";
+        sqLiteDatabase.execSQL(sqlAnswer);
+
+        String sqlQuizAccount = "CREATE TABLE IF NOT EXISTS " + Constant.QuizAccount.TABLE_NAME.getValue()
+                + " (quiz_id TEXT not null, account_id TEXT not null)";
+        sqLiteDatabase.execSQL(sqlQuizAccount);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        String sqlAccount = "Drop table if exists " + Constant.Account.TABLE_NAME.getValue();
+        sqLiteDatabase.execSQL(sqlAccount);
 
+        String sqlQuiz = "Drop table if exists " + Constant.Quiz.TABLE_NAME.getValue();
+        sqLiteDatabase.execSQL(sqlQuiz);
+
+        String sqlQues = "Drop table if exists " + Constant.Question.TABLE_NAME.getValue();
+        sqLiteDatabase.execSQL(sqlQues);
+
+        String sqlAnswer = "Drop table if exists " + Constant.Answer.TABLE_NAME.getValue();
+        sqLiteDatabase.execSQL(sqlAnswer);
+
+        String sqlQuizAccount = "Drop table if exists " + Constant.QuizAccount.TABLE_NAME.getValue();
+        sqLiteDatabase.execSQL(sqlQuizAccount);
+
+        onCreate(sqLiteDatabase);
     }
-
-
-    // Action with table account
-    public Boolean insertAccount(Account account) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Constant.Account.ID.getValue(), account.getId());
-        contentValues.put(Constant.Account.USERNAME.getValue(), account.getUsername());
-        contentValues.put(Constant.Account.PASSWORD.getValue(), account.getPassword());
-        contentValues.put(Constant.Account.EMAIL.getValue(), account.getEmail());
-        contentValues.put(Constant.Account.DOB.getValue(), account.getDob());
-        long result = sqLiteDatabase.insert(Constant.Account.TABLE_NAME.getValue(), null, contentValues);
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public Boolean checkUsernameAndEmail(Account account) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from account where username = ? or email = ?",
-                new String[]{account.getUsername(), account.getEmail()});
-        if (cursor.getCount() > 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public Boolean checkAccount(Account account) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from account where username = ? and password = ?",
-                new String[]{account.getUsername(), account.getPassword()});
-        if (cursor.getCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }

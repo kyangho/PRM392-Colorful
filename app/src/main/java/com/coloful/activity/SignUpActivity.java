@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
+import com.coloful.dao.AccountDao;
 import com.coloful.dao.DBHelper;
 import com.coloful.model.Account;
 
@@ -28,11 +29,14 @@ public class SignUpActivity extends AppCompatActivity {
     EditText ed_date, ed_email, ed_username, ed_password;
     DBHelper db;
 
+    AccountDao accountDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         back = (ImageButton) findViewById(R.id.bt_back);
+        accountDao = new AccountDao();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,26 +67,26 @@ public class SignUpActivity extends AppCompatActivity {
                     //Fix for pressing delete next to a forward slash
                     if (clean.equals(cleanC)) sel--;
 
-                    if (clean.length() < 8){
+                    if (clean.length() < 8) {
                         clean = clean + ddmmyyyy.substring(clean.length());
-                    }else{
+                    } else {
                         //This part makes sure that when we finish entering numbers
                         //the date is correct, fixing it otherwise
-                        int day  = Integer.parseInt(clean.substring(0,2));
-                        int mon  = Integer.parseInt(clean.substring(2,4));
-                        int year = Integer.parseInt(clean.substring(4,8));
+                        int day = Integer.parseInt(clean.substring(0, 2));
+                        int mon = Integer.parseInt(clean.substring(2, 4));
+                        int year = Integer.parseInt(clean.substring(4, 8));
 
-                        if(mon > 12) mon = 12;
-                        cal.set(Calendar.MONTH, mon-1);
+                        if (mon > 12) mon = 12;
+                        cal.set(Calendar.MONTH, mon - 1);
 
-                        year = (year<1900)?1900:(year>2100)?2100:year;
+                        year = (year < 1900) ? 1900 : (year > 2100) ? 2100 : year;
                         cal.set(Calendar.YEAR, year);
                         // ^ first set year for the line below to work correctly
                         //with leap years - otherwise, date e.g. 29/02/2012
                         //would be automatically corrected to 28/02/2012
 
-                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-                        clean = String.format("%02d%02d%02d",day, mon, year);
+                        day = (day > cal.getActualMaximum(Calendar.DATE)) ? cal.getActualMaximum(Calendar.DATE) : day;
+                        clean = String.format("%02d%02d%02d", day, mon, year);
                     }
 
                     clean = String.format("%s/%s/%s", clean.substring(0, 2),
@@ -95,16 +99,17 @@ public class SignUpActivity extends AppCompatActivity {
                     ed_date.setSelection(sel < current.length() ? sel : current.length());
 
 
-
                 }
             }
 
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
 
@@ -117,23 +122,24 @@ public class SignUpActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = UUID.randomUUID().toString();
                 String dob = ed_date.getText().toString();
                 String email = ed_email.getText().toString();
                 String username = ed_username.getText().toString();
                 String password = ed_password.getText().toString();
 
-                Account account = new Account(id, username, password, email, dob);
+                Account account = new Account(null, username, password, email, dob);
 
-                if(dob.equals("") || email.equals("") ||username.equals("") ||password.equals("")){
+                if (dob.equals("") || email.equals("") || username.equals("") || password.equals("")) {
                     Toast.makeText(SignUpActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(!db.checkUsernameAndEmail(account)){
+                } else {
+                    if (accountDao.checkUsernameAndEmail(SignUpActivity.this, account)) {
                         Toast.makeText(SignUpActivity.this, "Username or email was used", Toast.LENGTH_SHORT).show();
-                    }else{
-                        if(db.insertAccount(account)){
+                    } else {
+                        if (accountDao.insertAccount(SignUpActivity.this, account)) {
                             Toast.makeText(SignUpActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                        }else{
+                            Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+                            startActivity(intent);
+                        } else {
                             Toast.makeText(SignUpActivity.this, "Registered fail", Toast.LENGTH_SHORT).show();
                         }
                     }

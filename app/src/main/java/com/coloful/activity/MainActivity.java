@@ -1,9 +1,13 @@
 package com.coloful.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Debug;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -14,17 +18,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.coloful.R;
+import com.coloful.constant.Constant;
+import com.coloful.datalocal.DataLocalManager;
 import com.coloful.fragments.HomeFragment;
 import com.coloful.fragments.ProfileFragment;
 import com.coloful.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.prefs.Preferences;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private ActionBar toolbar;
     private BottomNavigationView navigation;
     TextView actionBarTitle;
-    public MainActivity() {
-    }
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -42,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // setTitle of actionBar with screen
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
         actionBarTitle.setText("Home");
+
+        DataLocalManager.init(this);
+            System.out.println(DataLocalManager.getAccount().getUsername());
+
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
         getDataFromOtherActivity(getIntent().getStringExtra("backScreen"));

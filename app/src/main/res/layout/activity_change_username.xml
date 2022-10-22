@@ -35,7 +35,14 @@
         android:paddingVertical="10dp"
         android:textCursorDrawable="@color/black"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
+        <TextView
+            android:id="@+id/tv_msg_change_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_marginHorizontal="10dp"
+            android:textStyle="bold"
+            />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,7 +50,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_save"
+            android:id="@+id/btn_save_change_username"
             android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="35dp"
@@ -52,7 +59,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_cancel_change_username"
             android:layout_width="141dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/aqua"

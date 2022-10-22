@@ -2,12 +2,11 @@ package com.coloful.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.coloful.R;
 import com.coloful.activity.AboutAppActivity;
@@ -16,6 +15,7 @@ import com.coloful.activity.ChangePasswordActivity;
 import com.coloful.activity.ChangeUsernameActivity;
 import com.coloful.activity.LogInActivity;
 import com.coloful.activity.MainActivity;
+import com.coloful.datalocal.DataLocalManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +26,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private MainActivity mainActivity;
     private View fragView;
-
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -41,7 +40,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainActivity = (MainActivity) getActivity();
-
+        DataLocalManager.init(getContext());
         fragView = inflater.inflate(R.layout.fragment_profile, container, false);
         onClickView();
         return fragView;
@@ -76,6 +75,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_log_out:
+                DataLocalManager.removeSession();
                 intent = new Intent(mainActivity, LogInActivity.class);
                 startActivity(intent);
                 break;

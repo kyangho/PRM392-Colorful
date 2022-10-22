@@ -1,7 +1,10 @@
 package com.coloful.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,9 +18,12 @@ import androidx.fragment.app.FragmentManager;
 
 import com.coloful.R;
 import com.coloful.adapters.FragmentDialogHelper;
+import com.coloful.constant.Constant;
+import com.coloful.dao.AccountDao;
 import com.coloful.dao.DBHelper;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
+import com.google.gson.Gson;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,13 +34,20 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private EditText edtUsername;
     private EditText edtPassword;
     private TextView tvMsg;
-    DBHelper db;
+    private AccountDao accountDao;
+//    private SharedPreferences sharedPreferences;
+//    private SharedPreferences.Editor editor;
+//
+//    DataLocalManager dataLocalManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         getSupportActionBar().hide();
+
+        DataLocalManager.init(this);
+
         ImgBtnBack = findViewById(R.id.ImgBtn_back);
         tvFgUsername = findViewById(R.id.tv_fg_username);
         tvFgPassword = findViewById(R.id.tv_fg_password);
@@ -42,6 +55,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         edtUsername = findViewById(R.id.edt_username_login);
         edtPassword = findViewById(R.id.edt_password_login);
         tvMsg = findViewById(R.id.tvMsg);
+        System.out.println(DataLocalManager.getAccount());
+
+        accountDao = new AccountDao();
 
         tvFgPassword.setOnClickListener(this::onClick);
         tvFgUsername.setOnClickListener(this::onClick);
@@ -82,17 +98,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         Account account = new Account(username, password);
 
         if (username.equals("") || password.equals("")) {
-//            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
             tvMsg.setText("Please enter username and password!");
         } else {
-            Boolean isLogin = db.checkAccount(account);
-            if (isLogin == null || !isLogin) {
+            Account isLogin = accountDao.checkAccount(this, account);
+            if (isLogin == null) {
                 tvMsg.setText("Username or password is invalid!");
             } else {
-                DataLocalManager.setAccount(account);
+                DataLocalManager.setAccount(isLogin);
                 Intent main = new Intent(this, MainActivity.class);
                 startActivity(main);
-//                Toast.makeText(this, "Wrong username or password", Toast.LENGTH_SHORT).show();
             }
         }
     }
