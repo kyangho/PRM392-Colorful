@@ -1,13 +1,9 @@
 package com.coloful.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Debug;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -15,25 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.coloful.R;
-import com.coloful.constant.Constant;
+import com.coloful.adapters.FragmentDialogHelper;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.fragments.HomeFragment;
 import com.coloful.fragments.ProfileFragment;
 import com.coloful.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.prefs.Preferences;
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private ActionBar toolbar;
     private BottomNavigationView navigation;
     TextView actionBarTitle;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -53,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         actionBarTitle.setText("Home");
 
         DataLocalManager.init(this);
-            System.out.println(DataLocalManager.getAccount().getUsername());
+        System.out.println(DataLocalManager.getAccount().getUsername());
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
@@ -78,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment;
+        FragmentManager fm;
+        FragmentDialogHelper popup;
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 fragment = new HomeFragment();
@@ -88,8 +83,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 loadFragment(fragment, "Search");
                 return true;
             case R.id.navigation_new_set:
-                fragment = new HomeFragment();
-                loadFragment(fragment, "Create Set");
+                fm = getSupportFragmentManager();
+                popup = FragmentDialogHelper.newInstance("create quiz");
+                popup.show(fm, null);
                 return true;
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();

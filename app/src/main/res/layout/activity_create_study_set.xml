@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke"
+    tools:context=".activity.CreateStudySetActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edt_create_quiz_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom_text"
+            android:cursorVisible="true"
+            android:hint="Subject, chapter, unit"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:padding="3dp"
+            android:text="TITLE"
+            android:textColor="@color/dark_gray"
+            android:textStyle="bold" />
+
+            <ListView
+                android:id="@+id/lv_create_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/img_add_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24"
+            android:background="@color/white_smoke"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/btn_save_set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:text="Save" />
+
+    </LinearLayout>
+
+</ScrollView>
