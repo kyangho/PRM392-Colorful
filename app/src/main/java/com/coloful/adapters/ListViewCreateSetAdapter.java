@@ -13,11 +13,11 @@ import com.coloful.model.Question;
 
 import java.util.List;
 
-public class ListViewAdapter extends BaseAdapter {
+public class ListViewCreateSetAdapter extends BaseAdapter {
     private List<Question> itemList;
     private Activity activity;
 
-    public ListViewAdapter(Activity activity, List<Question> itemList) {
+    public ListViewCreateSetAdapter(Activity activity, List<Question> itemList) {
         this.activity = activity;
         this.itemList = itemList;
     }

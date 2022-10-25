@@ -13,7 +13,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
-import com.coloful.adapters.ListViewAdapter;
+import com.coloful.adapters.ListViewCreateSetAdapter;
 import com.coloful.model.Question;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class CreateStudySetActivity extends AppCompatActivity implements View.On
 
         questionList.add(new Question());
         listView = findViewById(R.id.lv_create_set);
-        ListViewAdapter adapter = new ListViewAdapter(this, questionList);
+        ListViewCreateSetAdapter adapter = new ListViewCreateSetAdapter(this, questionList);
         listView.setAdapter(adapter);
 
         btnSave.setOnClickListener(this::onClick);

@@ -34,8 +34,12 @@ public class OptionPracticeActivity extends AppCompatActivity implements View.On
         Intent intent;
         switch (view.getId()) {
             case R.id.tv_flashcard_option:
+                intent = new Intent(this, FlashcardActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_learn_option:
+                intent = new Intent(this, LearningActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_cancel_option:
                 intent = new Intent(this, MainActivity.class);

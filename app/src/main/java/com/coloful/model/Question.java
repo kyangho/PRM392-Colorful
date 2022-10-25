@@ -27,4 +27,9 @@ public class Question {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        return content + "\n\n" + answer ;
+    }
 }
