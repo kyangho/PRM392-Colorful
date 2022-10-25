@@ -55,7 +55,6 @@ public class Constant {
         ID("id"),
         Content("question_content"),
         QUIZ_ID("quiz_id"),
-        CORRECT_ANSWER("correct_answer"),
         TABLE_NAME("Question");
         private final String value;
 
