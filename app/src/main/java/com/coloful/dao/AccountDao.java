@@ -119,15 +119,4 @@ public class AccountDao {
         sqLiteDatabase.close();
         return (row > 0);
     }
-
-    public boolean updatePassword(Context context, String newPass, Integer id) {
-        db = new DBHelper(context);
-        sqLiteDatabase = db.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(Constant.Account.PASSWORD.getValue(), newPass);
-        int row = sqLiteDatabase.update(Constant.Account.TABLE_NAME.getValue(), values, "id=?",
-                new String[]{id.toString()});
-        sqLiteDatabase.close();
-        return (row > 0);
-    }
 }
