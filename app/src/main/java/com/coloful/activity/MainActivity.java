@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         actionBarTitle.setText("Home");
 
         DataLocalManager.init(this);
-        System.out.println(DataLocalManager.getAccount().getUsername());
+        System.out.println(DataLocalManager.getAccount().toString());
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);

@@ -1,19 +1,42 @@
 package com.coloful.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
 import com.coloful.R;
+import com.coloful.activity.StudySetDetailsActivity;
+import com.coloful.adapters.ListViewQuizAdapter;
+import com.coloful.model.Quiz;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class SearchFragment extends Fragment {
+
+    EditText edtSearch;
+    TextView tvIntro;
+
+    ListView lvSearch;
+    ListViewQuizAdapter adapter;
+
+    List<Quiz> quizList = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +81,50 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        edtSearch = (EditText) view.findViewById(R.id.edt_search_set);
+//        tvIntro = (TextView) view.findViewById(R.id.tv_search_introduction);
+        lvSearch = (ListView) view.findViewById(R.id.lv_search);
+        Quiz q = new Quiz();
+        q.setTitle("Quiz demo");
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        quizList.add(q);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter = new ListViewQuizAdapter(getActivity(), quizList);
+                lvSearch.setAdapter(adapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), StudySetDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        return view;
     }
 }

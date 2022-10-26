@@ -109,6 +109,7 @@ public class AccountDao {
         sqLiteDatabase.close();
         return (row > 0);
     }
+
     public boolean updateUsername(Context context, String newUsername, Integer id) {
         db = new DBHelper(context);
         sqLiteDatabase = db.getWritableDatabase();
@@ -129,5 +130,24 @@ public class AccountDao {
                 new String[]{id.toString()});
         sqLiteDatabase.close();
         return (row > 0);
+    }
+
+    public Account getAccountForQuiz(Context context, int accountId) {
+        db = new DBHelper(context);
+        sqLiteDatabase = db.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM account WHERE id=?",
+                new String[]{String.valueOf(accountId)});
+        Account acc = null;
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            acc = new Account();
+            acc.setId(cursor.getInt(0));
+            acc.setUsername(cursor.getString(1));
+            acc.setEmail(cursor.getString(3));
+            acc.setDob(cursor.getString(4));
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+        return acc;
     }
 }
