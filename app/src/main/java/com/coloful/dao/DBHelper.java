@@ -8,7 +8,7 @@ import com.coloful.constant.Constant;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "DB_QUIZ";
-    private static final int version = 1;
+    private static final int version = 2;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, version);

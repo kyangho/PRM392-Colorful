@@ -1,6 +1,7 @@
 package com.coloful.model;
 
 public class Question {
+    private Integer id;
     private String content;
     private String answer;
 
@@ -28,8 +29,16 @@ public class Question {
         this.answer = answer;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return content + "\n\n" + answer ;
+        return content + "\n\n" + answer;
     }
 }
