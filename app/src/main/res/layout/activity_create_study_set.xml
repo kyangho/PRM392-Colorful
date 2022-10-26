@@ -36,18 +36,22 @@
             android:textColor="@color/dark_gray"
             android:textStyle="bold" />
 
-            <ListView
-                android:id="@+id/lv_create_set"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/list_view_create_set_item">
+            </include>
+<!--            <ListView-->
+<!--                android:id="@+id/lv_create_set"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
 
         <ImageButton
             android:id="@+id/img_add_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_baseline_add_circle_24"
+            android:layout_marginBottom="5dp"
             android:background="@color/white_smoke"
-            android:layout_marginBottom="5dp"/>
+            android:minHeight="48dp"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
         <Button
             android:id="@+id/btn_save_set"
