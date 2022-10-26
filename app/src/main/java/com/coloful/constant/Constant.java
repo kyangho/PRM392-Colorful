@@ -87,6 +87,7 @@ public class Constant {
     public enum QuizAccount {
         QUIZ_ID("quiz_id"),
         ACCOUNT_ID("account_id"),
+        LAST_TIME_JOIN("last_time_join"),
         TABLE_NAME("Quiz_Account"),
         ;
         private final String value;

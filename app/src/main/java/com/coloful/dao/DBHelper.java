@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sqlAnswer);
 
         String sqlQuizAccount = "CREATE TABLE IF NOT EXISTS " + Constant.QuizAccount.TABLE_NAME.getValue()
-                + " (quiz_id TEXT not null, account_id TEXT not null)";
+                + " (quiz_id TEXT not null, account_id TEXT not null, last_time_join TEXT not null)";
         sqLiteDatabase.execSQL(sqlQuizAccount);
     }
 

@@ -12,6 +12,7 @@ import com.coloful.model.Quiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class QuizDao {
 
@@ -88,5 +89,32 @@ public class QuizDao {
             sqLiteDatabase.close();
             return true;
         }
+    }
+
+    public static List<Quiz> init() {
+        List<Quiz> quizList = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            Quiz q = new Quiz();
+            q.setId(i + 1);
+            q.setTitle("ABC " + (i + 1));
+
+            Account account = new Account();
+            account.setUsername("Author " + (i + 1));
+            q.setAuthor(account);
+            int number = random.nextInt(10);
+            List<Question> questionList = new ArrayList<>();
+
+            for (int j = 0; j < number; j++) {
+                Question question = new Question();
+                question.setAnswer("abcs " + j);
+                question.setContent("hom nay ngay gi?");
+                questionList.add(question);
+            }
+            q.setQuestionList(questionList);
+            quizList.add(q);
+        }
+        return quizList;
     }
 }

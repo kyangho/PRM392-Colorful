@@ -57,10 +57,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (backScreen == null) {
             backScreen = new String();
         }
+        System.out.println(backScreen);
         switch (backScreen) {
             case "Profile":
                 loadFragment(new ProfileFragment(), "Profile");
                 navigation.getMenu().getItem(3).setChecked(true);
+                break;
+            case "search":
+                loadFragment(new SearchFragment(), "Search");
+                navigation.getMenu().getItem(1).setChecked(true);
                 break;
             default:
                 loadFragment(new HomeFragment(), "Home");

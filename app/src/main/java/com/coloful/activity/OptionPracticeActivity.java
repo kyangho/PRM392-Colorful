@@ -13,12 +13,15 @@ public class OptionPracticeActivity extends AppCompatActivity implements View.On
     TextView tvLearnOption;
     TextView tvFlashcardOption;
     TextView tvCancelOption;
+    String quizId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_practice);
         getSupportActionBar().hide();
+
+        quizId = getIntent().getStringExtra("quizId");
 
         tvCancelOption = findViewById(R.id.tv_cancel_option);
         tvLearnOption = findViewById(R.id.tv_learn_option);
@@ -35,14 +38,18 @@ public class OptionPracticeActivity extends AppCompatActivity implements View.On
         switch (view.getId()) {
             case R.id.tv_flashcard_option:
                 intent = new Intent(this, FlashcardActivity.class);
+                intent.putExtra("quizId", quizId);
+                intent.putExtra("screen", "option practice");
                 startActivity(intent);
                 break;
             case R.id.tv_learn_option:
                 intent = new Intent(this, LearningActivity.class);
+                intent.putExtra("quizId", quizId);
                 startActivity(intent);
                 break;
             case R.id.tv_cancel_option:
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, StudySetDetailsActivity.class);
+                intent.putExtra("quizId", quizId);
                 startActivity(intent);
                 break;
 

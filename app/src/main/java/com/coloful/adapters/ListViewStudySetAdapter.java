@@ -42,6 +42,7 @@ public class ListViewStudySetAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         view = inflater.inflate(R.layout.listview_study_set_item, null);
         TextView tv = (TextView) view.findViewById(R.id.tv_study_item);
+
         tv.setText(itemList.get(i).toString());
 
         return view;

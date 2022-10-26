@@ -1,5 +1,6 @@
 package com.coloful.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.coloful.R;
+import com.coloful.activity.StudySetDetailsActivity;
+import com.coloful.adapters.ListViewQuizAdapter;
+import com.coloful.dao.QuizDao;
+import com.coloful.model.Quiz;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +27,11 @@ import com.coloful.R;
  */
 public class HomeFragment extends Fragment {
 
+    ListView lvQuizHome;
+
+    ListViewQuizAdapter adapter;
+
+    List<Quiz> quizList = new ArrayList<>();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +76,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        quizList.addAll(QuizDao.init());
+
+        lvQuizHome = view.findViewById(R.id.lv_quiz_home);
+        adapter = new ListViewQuizAdapter(getActivity(), quizList);
+        lvQuizHome.setAdapter(adapter);
+        lvQuizHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), StudySetDetailsActivity.class);
+                intent.putExtra("quizId", quizList.get(i).getId());
+                intent.putExtra("screen", "home");
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }

@@ -46,10 +46,10 @@ public class ListViewQuizAdapter extends BaseAdapter {
         tvQuizTitle.setText(itemList.get(i).getTitle());
 
         TextView tvQuizTerm = child.findViewById(R.id.tv_search_term);
-        tvQuizTerm.setText("60 Terms");
+        tvQuizTerm.setText(itemList.get(i).getQuestionList().size() + " Terms");
 
         TextView tvQuizAuthor = child.findViewById(R.id.tv_search_author);
-        tvQuizAuthor.setText("ABC");
+        tvQuizAuthor.setText(itemList.get(i).getAuthor().getUsername());
         return view;
     }
 }
