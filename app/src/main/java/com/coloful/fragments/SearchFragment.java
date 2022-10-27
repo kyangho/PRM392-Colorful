@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,6 +20,7 @@ import com.coloful.R;
 import com.coloful.activity.StudySetDetailsActivity;
 import com.coloful.adapters.ListViewQuizAdapter;
 import com.coloful.dao.QuizDao;
+import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Quiz;
 
 import java.util.ArrayList;
@@ -34,12 +36,13 @@ import java.util.stream.Collectors;
 public class SearchFragment extends Fragment {
 
     EditText edtSearch;
-    TextView tvIntro;
+    TextView tvNoti;
 
     ListView lvSearch;
     ListViewQuizAdapter adapter;
 
     List<Quiz> quizList = new ArrayList<>();
+    List<Quiz> quizShow = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,8 +90,14 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         edtSearch = (EditText) view.findViewById(R.id.edt_search_set);
+        tvNoti = (TextView) view.findViewById(R.id.tv_search_noti);
+
         lvSearch = (ListView) view.findViewById(R.id.lv_search);
-        quizList.addAll(QuizDao.init());
+        QuizDao dao = new QuizDao();
+
+        quizList.addAll(dao.allQuiz(getContext(), DataLocalManager.getAccount().getId()));
+        quizList.addAll(dao.allQuiz(getContext(), DataLocalManager.getAccount().getId()));
+
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -97,14 +106,19 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                List<Quiz> quizShow = getQuizSearch(charSequence.toString());
+                quizShow = getQuizSearch(charSequence.toString());
                 adapter = new ListViewQuizAdapter(getActivity(), quizShow);
                 lvSearch.setAdapter(adapter);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if (quizShow.isEmpty()) {
+                    tvNoti.setText("Can't find the quiz you want!");
+//                    Toast.makeText(getContext(), "Can't find the quiz you want!", Toast.LENGTH_SHORT).show();
+                } else {
+                    tvNoti.setText(null);
+                }
             }
         });
 
@@ -113,7 +127,7 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), StudySetDetailsActivity.class);
                 intent.putExtra("screen", "search");
-                intent.putExtra("quizId", quizList.get(i).getId());
+                intent.putExtra("quizId", quizShow.get(i).getId());
                 startActivity(intent);
             }
         });
@@ -123,6 +137,8 @@ public class SearchFragment extends Fragment {
     }
 
     private List<Quiz> getQuizSearch(String charSequence) {
-        return quizList.stream().filter(q -> q.getTitle().toLowerCase().contains(charSequence.toLowerCase())).collect(Collectors.toList());
+        return quizList.stream().filter(q ->
+                q.getTitle().toLowerCase().contains(charSequence.toLowerCase())
+        ).collect(Collectors.toList());
     }
 }

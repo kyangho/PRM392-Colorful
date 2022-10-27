@@ -11,14 +11,15 @@ import android.view.MenuItem;
 import com.coloful.R;
 
 public class LearningActivity extends AppCompatActivity {
-    String quizId;
+    int quizId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learning);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4257b0")));
-        quizId = getIntent().getStringExtra("quizId");
+        quizId = getIntent().getIntExtra("quizId", 0);
     }
 
     @Override

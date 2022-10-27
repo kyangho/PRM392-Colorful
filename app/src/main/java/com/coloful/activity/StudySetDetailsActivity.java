@@ -15,7 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.coloful.R;
 import com.coloful.adapters.ListViewStudySetAdapter;
+import com.coloful.dao.AccountDao;
 import com.coloful.dao.QuizDao;
+import com.coloful.datalocal.DataLocalManager;
+import com.coloful.model.Account;
 import com.coloful.model.Question;
 import com.coloful.model.Quiz;
 
@@ -30,7 +33,7 @@ public class StudySetDetailsActivity extends AppCompatActivity implements View.O
     ImageButton imgFlashcard;
     TextView tvTitle, tvAuthor, tvTerm;
     String screen;
-    String quizId;
+    int quizId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +43,16 @@ public class StudySetDetailsActivity extends AppCompatActivity implements View.O
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4257b0")));
 
         screen = getIntent().getStringExtra("screen");
-        quizId = getIntent().getStringExtra("quizId");
+        quizId = getIntent().getIntExtra("quizId", 0);
 
-//        questionList.add(
-//                new Question("Which architecture style supports scalability and reliability better?\n" +
-//                        "A. Buffered message-based architecture (2)\n" +
-//                        "B. Both (1) and (2) are the same\n" +
-//                        "C. Non-buffered Event-based architecture (1)", "A"));
-//        questionList.add(
-//                new Question("Which architecture style supports scalability and reliability better?\n" +
-//                        "A. Buffered message-based architecture (2)\n" +
-//                        "B. Both (1) and (2) are the same\n" +
-//                        "C. Non-buffered Event-based architecture (1)", "A"));
-        Quiz q = QuizDao.init().get(0);
+        QuizDao dao = new QuizDao();
+
+        Quiz q = dao.getQuizById(this, quizId);
+
+        Account account = DataLocalManager.getAccount();
+        if (account.getId() != q.getAuthor().getId()) {
+            dao.joinQuiz(this, quizId, account.getId());
+        }
         tvTitle = findViewById(R.id.tv_study_title);
         tvAuthor = findViewById(R.id.tv_author);
         tvTerm = findViewById(R.id.tv_number_question);

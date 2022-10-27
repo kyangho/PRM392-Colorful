@@ -1,5 +1,6 @@
 package com.coloful.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class Quiz {
@@ -7,6 +8,7 @@ public class Quiz {
     private String Title;
     private Account author;
     private List<Question> questionList;
+    private Date timeJoin;
 
     public Quiz() {
     }
@@ -41,5 +43,13 @@ public class Quiz {
 
     public void setQuestionList(List<Question> questionList) {
         this.questionList = questionList;
+    }
+
+    public Date getTimeJoin() {
+        return timeJoin;
+    }
+
+    public void setTimeJoin(Date timeJoin) {
+        this.timeJoin = timeJoin;
     }
 }
