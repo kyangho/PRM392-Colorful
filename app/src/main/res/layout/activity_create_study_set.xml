@@ -36,30 +36,71 @@
             android:textColor="@color/dark_gray"
             android:textStyle="bold" />
 
-            <include
-                layout="@layout/list_view_create_set_item">
-            </include>
-<!--            <ListView-->
-<!--                android:id="@+id/lv_create_set"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"/>-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="196dp">
 
-        <ImageButton
-            android:id="@+id/img_add_question"
+            <Button
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Add" />
+
+            <AutoCompleteTextView
+                android:id="@+id/textin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/add"
+                android:minHeight="48dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textin"
+                android:layout_alignBottom="@+id/textin"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="-43dp"
+                android:padding="3dp"
+                android:text="TERM"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <AutoCompleteTextView
+                android:id="@+id/textin1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="98dp"
+                android:layout_marginRight="0dp"
+                android:layout_toLeftOf="@id/add" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textin1"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="-38dp"
+                android:padding="3dp"
+                android:text="DEFINITION"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="@color/white_smoke"
-            android:minHeight="48dp"
-            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
-
+            android:orientation="vertical">
+        </LinearLayout>
         <Button
             android:id="@+id/btn_save_set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
             android:text="Save" />
-
     </LinearLayout>
-
 </ScrollView>

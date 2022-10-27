@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,53 +22,34 @@ import com.coloful.adapters.ListViewCreateSetAdapter;
 import com.coloful.dao.QuizDao;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
-import com.coloful.model.Answer;
 import com.coloful.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateStudySetActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateStudySetActivity extends AppCompatActivity {
     Button btnSave;
-    ImageButton imgAdd;
     List<Question> questionList = new ArrayList<>();
-    List<Answer> Answer = new ArrayList<>();
-    EditText edt_create_quiz_title, edt_definition_1, edt_term_1;
+    EditText edt_create_quiz_title;
     Account account;
-    ListView listView;
-    LinearLayout list;
-    Context context;
+    AutoCompleteTextView textIn, textIn1;
+    Button buttonAdd;
+    LinearLayout container;
+    ArrayAdapter<String> adapter1;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
+        setContentView(R.layout.activity_create_study_set);
         setContentView(R.layout.activity_create_study_set);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4257b0")));
 
-        imgAdd = findViewById(R.id.img_add_question);
         edt_create_quiz_title = findViewById(R.id.edt_create_quiz_title);
-        edt_term_1 = findViewById(R.id.edt_term_1);
-        edt_definition_1 = findViewById(R.id.edt_definition_1);
         btnSave = findViewById(R.id.btn_save_set);
-
-
         questionList.add(new Question());
-//        listView = findViewById(R.id.lv_create_set);
         ListViewCreateSetAdapter adapter = new ListViewCreateSetAdapter(this, questionList);
-//        listView.setAdapter(adapter);
-
-//        btnSave.setOnClickListener(this::onClick);
-        imgAdd.setOnClickListener(this::onClick);
         account = DataLocalManager.getAccount();
-        imgAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addView();
-            }
-        });
-
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,26 +57,38 @@ public class CreateStudySetActivity extends AppCompatActivity implements View.On
                 db.addQuiz(CreateStudySetActivity.this,account.getUsername(),edt_create_quiz_title.getText().toString().trim(), questionList);
             }
         });
-
-    }
-
-    private void addView(){
-        final View aa = getLayoutInflater().inflate(R.layout.list_view_create_set_item, null, false);
-        ImageView cross =(ImageView) aa.findViewById(R.id.cross2);
-        cross.setVisibility(View.VISIBLE);
-        cross.setOnClickListener(new View.OnClickListener() {
+        adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line);
+        textIn = (AutoCompleteTextView)findViewById(R.id.textin);
+        textIn1 = (AutoCompleteTextView)findViewById(R.id.textin1);
+        textIn.setAdapter(adapter1);
+        textIn1.setAdapter(adapter1);
+        buttonAdd = (Button)findViewById(R.id.add);
+        container = (LinearLayout) findViewById(R.id.container);
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removeView(aa);
+                LayoutInflater layoutInflater =
+                        (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View addView = layoutInflater.inflate(R.layout.list_view_create_set_item, null);
+                AutoCompleteTextView textOut = (AutoCompleteTextView)addView.findViewById(R.id.edt_term_1);
+                AutoCompleteTextView textOut1 = (AutoCompleteTextView)addView.findViewById(R.id.edt_definition_1);
+                textOut.setAdapter(adapter1);
+                textOut1.setAdapter(adapter1);
+                textOut.setText(textIn.getText().toString());
+                textOut1.setText(textIn.getText().toString());
+                Button buttonRemove = (Button)addView.findViewById(R.id.remove);
+                final View.OnClickListener thisListener = new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        ((LinearLayout)addView.getParent()).removeView(addView);
+                    }
+                };
+                buttonRemove.setOnClickListener(thisListener);
+                container.addView(addView);
             }
         });
-        list.addView(aa);
     }
-
-    private void removeView(View view){
-        list.removeView(view);
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -109,18 +102,6 @@ public class CreateStudySetActivity extends AppCompatActivity implements View.On
             default:
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_save_set:
-                break;
-            case R.id.img_add_question:
-                break;
-        }
-    }
-
 }

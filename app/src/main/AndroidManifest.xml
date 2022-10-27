@@ -17,7 +17,6 @@
         <activity
             android:name=".activity.FlashcardActivity"
             android:exported="true" />
-
         <activity
             android:name=".activity.LearningActivity"
             android:exported="true"
@@ -25,8 +24,7 @@
         <activity
             android:name=".activity.StudySetDetailsActivity"
             android:exported="true"
-            android:label="@string/study_set_details">
-        </activity>
+            android:label="@string/study_set_details"></activity>
         <activity
             android:name=".activity.CreateStudySetActivity"
             android:exported="false"
