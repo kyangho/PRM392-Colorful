@@ -180,8 +180,6 @@ public class QuizDao {
 
     public static List<Quiz> init() {
         List<Quiz> quizList = new ArrayList<>();
-        Random random = new Random();
-
         for (int i = 0; i < 10; i++) {
             Quiz q = new Quiz();
             q.setId(i + 1);
@@ -190,13 +188,12 @@ public class QuizDao {
             Account account = new Account();
             account.setUsername("Author " + (i + 1));
             q.setAuthor(account);
-            int number = random.nextInt(10);
             List<Question> questionList = new ArrayList<>();
 
-            for (int j = 0; j < number; j++) {
+            for (int j = 0; j < 5; j++) {
                 Question question = new Question();
                 question.setAnswer("abcs " + j);
-                question.setContent("hom nay ngay gi?");
+                question.setContent("hom nay ngay gi " + j + "?");
                 questionList.add(question);
             }
             q.setQuestionList(questionList);

@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/img_exist"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@color/white_smoke"
@@ -23,7 +24,7 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/tv_flash_card"
+            android:id="@+id/tv_flash_card_number"
             android:layout_width="139dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="60dp"
@@ -40,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_marginTop="50dp"
+        android:clickable="true"
         android:background="@drawable/border_white"
         android:gravity="center"
         android:text="abc"
@@ -63,6 +65,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/img_flash_pre"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@color/white_smoke"
@@ -84,6 +87,7 @@
             android:textStyle="bold" />
 
         <ImageButton
+            android:id="@+id/img_flash_next"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@color/white_smoke"
