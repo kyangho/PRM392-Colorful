@@ -172,4 +172,16 @@ public class AccountDao {
             sqLiteDatabase.insert(Constant.Account.TABLE_NAME.getValue(), null, contentValues);
         });
     }
+
+    public String getUsernameByEmail(Context context, String email) {
+        db = new DBHelper(context);
+        sqLiteDatabase = db.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select username from account where email =? ", new String[]{email});
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            return cursor.getString(0);
+        }
+
+        return null;
+    }
 }
