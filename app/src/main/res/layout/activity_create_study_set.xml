@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <EditText
@@ -36,66 +37,22 @@
             android:textColor="@color/dark_gray"
             android:textStyle="bold" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="196dp">
-
-            <Button
-                android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Add" />
-
-            <AutoCompleteTextView
-                android:id="@+id/textin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@id/add"
-                android:minHeight="48dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textin"
-                android:layout_alignBottom="@+id/textin"
-                android:layout_marginTop="17dp"
-                android:layout_marginBottom="-43dp"
-                android:padding="3dp"
-                android:text="TERM"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <AutoCompleteTextView
-                android:id="@+id/textin1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="98dp"
-                android:layout_marginRight="0dp"
-                android:layout_toLeftOf="@id/add" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textin1"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="-38dp"
-                android:padding="3dp"
-                android:text="DEFINITION"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:gravity="center"
+            android:orientation="vertical"/>
+
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="46dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/white_smoke"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
         <Button
             android:id="@+id/btn_save_set"
             android:layout_width="match_parent"

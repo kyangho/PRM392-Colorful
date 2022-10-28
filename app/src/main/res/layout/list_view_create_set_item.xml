@@ -2,14 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:orientation="vertical">
+    android:layout_height="165dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/border_white"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp">
 
     <Button
+        android:backgroundTint="@color/red"
         android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:textColor="@color/white"
         android:text="Remove" />
 
     <AutoCompleteTextView
@@ -17,7 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/remove"/>
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@id/remove"
+        android:background="@drawable/border_bottom_text" />
 
     <TextView
         android:layout_width="match_parent"
@@ -34,18 +41,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="78dp"
-        android:layout_marginRight="0dp"
         android:layout_toLeftOf="@id/remove"
+        android:background="@drawable/border_bottom_text"
         android:minHeight="48dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edt_definition_1"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="10dp"
         android:padding="3dp"
         android:text="DEFINITION"
         android:textColor="@color/black"
