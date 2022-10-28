@@ -12,9 +12,13 @@ import com.coloful.model.Quiz;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class QuizDao {
 
@@ -85,10 +89,13 @@ public class QuizDao {
                 cursor = sqLiteDatabase.rawQuery("select * from quiz where id =?", new String[]{quiz.getId().toString()});
                 cursor.moveToFirst();
                 quiz.setTitle(cursor.getString(1));
-                quiz.setAuthor(accountDao.getAccountForQuiz(context, accountID));
+                int author = cursor.getInt(2);
+                quiz.setAuthor(accountDao.getAccountForQuiz(context, author));
             }
         }
-        return quizList;
+
+        return quizList.stream().sorted((o1, o2) -> o2.getTimeJoin()
+                .compareTo(o1.getTimeJoin())).collect(Collectors.toList());
     }
 
     public List<Quiz> getYourQuiz(Context context, Account account) {

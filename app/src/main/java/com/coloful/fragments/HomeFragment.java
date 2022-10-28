@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
 
     List<Quiz> quizRecently = new ArrayList<>();
     List<Quiz> yourSet = new ArrayList<>();
-    TextView tvQuizRecently, tvQuizRecentlyViewAll, tvYourSet, tvYourSetViewAll, tvInStruction;
+    TextView tvQuizRecently, tvYourSet, tvInStruction;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -86,9 +86,7 @@ public class HomeFragment extends Fragment {
         rcQuizHome = view.findViewById(R.id.rc_quiz_home);
         rcYourSet = view.findViewById(R.id.rc_your_quiz_home);
         tvQuizRecently = view.findViewById(R.id.tv_quiz_recently);
-        tvQuizRecentlyViewAll = view.findViewById(R.id.tv_quiz_recently_view_all);
         tvYourSet = view.findViewById(R.id.tv_your_set);
-        tvYourSetViewAll = view.findViewById(R.id.tv_your_set_view_all);
         tvInStruction = view.findViewById(R.id.tv_home_instruction);
 
         QuizDao dao = new QuizDao();
@@ -102,9 +100,7 @@ public class HomeFragment extends Fragment {
             System.err.println("null or empty all!");
 
             tvQuizRecently.setVisibility(View.INVISIBLE);
-            tvQuizRecentlyViewAll.setVisibility(View.INVISIBLE);
             tvYourSet.setVisibility(View.INVISIBLE);
-            tvYourSetViewAll.setVisibility(View.INVISIBLE);
             String instruc = tvInStruction.getText().toString();
             instruc += " If you want to learn, choose search icon on navigation bar and find set you want!";
             tvInStruction.setText(instruc);
@@ -113,12 +109,10 @@ public class HomeFragment extends Fragment {
             System.err.println("recently null or empty!");
 
             tvQuizRecently.setVisibility(View.INVISIBLE);
-            tvQuizRecentlyViewAll.setVisibility(View.INVISIBLE);
         }
         if (yourSet == null || yourSet.isEmpty()) {
             System.err.println("set null or empty!");
             tvYourSet.setVisibility(View.INVISIBLE);
-            tvYourSetViewAll.setVisibility(View.INVISIBLE);
         }
         if (!quizRecently.isEmpty()) {
             System.err.println("recent have data");
