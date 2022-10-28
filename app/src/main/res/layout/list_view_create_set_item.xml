@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/remove"
-        android:hint="@string/app_name" />
+        android:layout_toLeftOf="@id/remove"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -39,7 +38,6 @@
         android:layout_marginTop="78dp"
         android:layout_marginRight="0dp"
         android:layout_toLeftOf="@id/remove"
-        android:hint="@string/app_name"
         android:minHeight="48dp" />
 
     <TextView

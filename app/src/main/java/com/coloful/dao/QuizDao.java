@@ -87,6 +87,7 @@ public class QuizDao {
             Toast.makeText(context, "Added success", Toast.LENGTH_SHORT).show();
         }
     }
+
     public boolean insertQuiz(Context context, Quiz quiz, List<Question> questionList) {
         db = new DBHelper(context);
         sqLiteDatabase = db.getWritableDatabase();
