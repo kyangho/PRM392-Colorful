@@ -16,8 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.coloful.R;
 import com.coloful.adapters.ListViewCreateSetAdapter;
@@ -32,12 +35,13 @@ import java.util.List;
 public class CreateStudySetActivity extends AppCompatActivity {
     Button btnSave;
     List<Question> questionList = new ArrayList<>();
-    EditText edt_create_quiz_title;
+    EditText edt_create_quiz_title,txt_question,txt_answer;
     Account account;
-    AutoCompleteTextView textIn, textIn1;
     ImageButton buttonAdd;
-    LinearLayout container;
+    LinearLayout list;
     ArrayAdapter<String> adapter1;
+    ArrayList<String> text = new ArrayList<>();
+    Context context;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,24 +50,45 @@ public class CreateStudySetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_study_set);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4257b0")));
-
+        context = this;
         edt_create_quiz_title = findViewById(R.id.edt_create_quiz_title);
+        txt_question = findViewById(R.id.txt_question);
+        txt_answer = findViewById(R.id.txt_answer);
+        list = findViewById(R.id.list);
         btnSave = findViewById(R.id.btn_save_set);
         questionList.add(new Question());
+        buttonAdd = (ImageButton) findViewById(R.id.add);
         account = DataLocalManager.getAccount();
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 QuizDao db = new QuizDao();
-                db.addQuiz(CreateStudySetActivity.this, account.getUsername(), edt_create_quiz_title.getText().toString().trim(), questionList);
+//                db.addQuiz(CreateStudySetActivity.this, account.getUsername(), edt_create_quiz_title.getText().toString().trim());
+
+                for (int i = 0; i < list.getChildCount(); i++) {
+                    if (list.getChildAt(i) instanceof LinearLayoutCompat) {
+                        LinearLayoutCompat ll = (LinearLayoutCompat) list.getChildAt(i);
+                        for (int j = 0; j < ll.getChildCount(); j++) {
+                            if (ll.getChildAt(j) instanceof EditText){
+                                EditText et = (EditText) ll.getChildAt(j);
+                                if(et.getId() == R.id.txt_question){
+                                    Toast.makeText(context, "" + et.getText().toString(), Toast.LENGTH_SHORT).show();
+                                    db.addQuiz(CreateStudySetActivity.this,
+                                            account.getUsername(),
+                                            edt_create_quiz_title.getText().toString().trim(),
+                                            et.getText().toString().trim());
+                                } else if (et.getId() == R.id.txt_answer) {
+                                    Toast.makeText(context, "" + et.getText().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+                }
             }
         });
         adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line);
-        buttonAdd = (ImageButton) findViewById(R.id.add);
-        container = (LinearLayout) findViewById(R.id.container);
-        addItem();
-
+//        addItem();
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,11 +107,11 @@ public class CreateStudySetActivity extends AppCompatActivity {
         );
         params.setMargins(0, 15, 0, 15);
         addView.setLayoutParams(params);
-        AutoCompleteTextView textOut = (AutoCompleteTextView) addView.findViewById(R.id.edt_term_1);
-        AutoCompleteTextView textOut1 = (AutoCompleteTextView) addView.findViewById(R.id.edt_definition_1);
-        textOut.setAdapter(adapter1);
-        textOut1.setAdapter(adapter1);
-        container.addView(addView);
+        TextView textOut = (TextView) addView.findViewById(R.id.txt_question);
+        TextView textOut1 = (TextView) addView.findViewById(R.id.txt_answer);
+//        textOut.setAdapter(adapter1);
+//        textOut1.setAdapter(adapter1);
+        list.addView(addView);
         Button buttonRemove = (Button) addView.findViewById(R.id.remove);
         final View.OnClickListener thisListener = new View.OnClickListener() {
             @Override

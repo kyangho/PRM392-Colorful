@@ -41,9 +41,9 @@ public class ListViewCreateSetAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = activity.getLayoutInflater();
         view = inflater.inflate(R.layout.list_view_create_set_item, null);
-        EditText edt_term = (EditText) view.findViewById(R.id.edt_term_1);
+        EditText edt_term = (EditText) view.findViewById(R.id.txt_question);
         edt_term.setText(itemList.get(i).getContent());
-        EditText edt_definition = (EditText) view.findViewById(R.id.edt_definition_1);
+        EditText edt_definition = (EditText) view.findViewById(R.id.txt_answer);
         edt_definition.setText(itemList.get(i).getAnswer());
 
         return view;

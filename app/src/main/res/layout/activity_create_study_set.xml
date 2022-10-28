@@ -38,11 +38,14 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/container"
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+
+            <include layout="@layout/list_view_create_set_item"></include>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/add"

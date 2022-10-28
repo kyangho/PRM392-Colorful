@@ -53,7 +53,7 @@ public class Constant {
 
     public enum Question {
         ID("id"),
-        Content("question_content"),
+        TITLE("question_content"),
         QUIZ_ID("quiz_id"),
         TABLE_NAME("Question");
         private final String value;

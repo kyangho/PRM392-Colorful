@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="165dp"
-    android:layout_marginBottom="10dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/border_white"
     android:orientation="vertical"
     android:paddingHorizontal="10dp">
@@ -15,44 +14,42 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:textColor="@color/white"
-        android:text="Remove" />
+        android:text="Remove"
+        android:minHeight="30dp" />
 
-    <AutoCompleteTextView
-        android:id="@+id/edt_term_1"
+    <EditText
+        android:id="@+id/txt_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="15dp"
+        android:minHeight="30dp"
         android:layout_toLeftOf="@id/remove"
         android:background="@drawable/border_bottom_text" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edt_term_1"
+        android:layout_below="@+id/txt_question"
         android:layout_marginTop="1dp"
-        android:padding="3dp"
         android:text="TERM"
         android:textColor="@color/black"
         android:textStyle="bold" />
 
-    <AutoCompleteTextView
-        android:id="@+id/edt_definition_1"
+    <EditText
+        android:id="@+id/txt_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="78dp"
         android:layout_toLeftOf="@id/remove"
         android:background="@drawable/border_bottom_text"
-        android:minHeight="48dp" />
+        android:minHeight="30dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edt_definition_1"
+        android:layout_below="@+id/txt_answer"
         android:layout_marginBottom="10dp"
-        android:padding="3dp"
         android:text="DEFINITION"
         android:textColor="@color/black"
         android:textStyle="bold" />
-</RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
