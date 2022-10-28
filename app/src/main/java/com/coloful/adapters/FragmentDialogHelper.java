@@ -1,25 +1,28 @@
 package com.coloful.adapters;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.coloful.R;
+import com.coloful.activity.CreateStudySetActivity;
 
 public class FragmentDialogHelper extends DialogFragment implements View.OnClickListener {
 
     String layoutName;
-    Button btnCancle;
+    Button btnCancel;
     Button btnOk;
 
     EditText editText;
+    TextView tvCreateSet;
 
     //Được dùng khi khởi tạo dialog mục đích nhận giá trị
     public static FragmentDialogHelper newInstance(String layoutName) {
@@ -39,6 +42,8 @@ public class FragmentDialogHelper extends DialogFragment implements View.OnClick
             view = inflater.inflate(R.layout.popup_forgot_username, container);
         } else if (layoutName.equals("password")) {
             view = inflater.inflate(R.layout.popup_forgot_password, container);
+        } else if (layoutName.equals("create quiz")) {
+            view = inflater.inflate(R.layout.popup_create_quiz, container);
         }
 
         return view;
@@ -50,16 +55,26 @@ public class FragmentDialogHelper extends DialogFragment implements View.OnClick
         // lấy giá trị tự bundle
         if (layoutName.equals("password")) {
             btnOk = (Button) view.findViewById(R.id.btn_fg_pass_ok);
-            btnCancle = (Button) view.findViewById(R.id.btn_fg_pass_cancle);
+            btnCancel = (Button) view.findViewById(R.id.btn_fg_pass_cancle);
             editText = view.findViewById(R.id.edt_username);
         } else if (layoutName.equals("username")) {
             btnOk = (Button) view.findViewById(R.id.btn_fg_username_ok);
-            btnCancle = (Button) view.findViewById(R.id.btn_fg_username_cancle);
+            btnCancel = (Button) view.findViewById(R.id.btn_fg_username_cancle);
             editText = view.findViewById(R.id.edt_email);
+        } else if (layoutName.equals("create quiz")) {
+            btnCancel = (Button) view.findViewById(R.id.btn_cancel_create_quiz);
+            tvCreateSet = (TextView) view.findViewById(R.id.tv_create_quiz);
+            btnOk = null;
         }
 
-        btnCancle.setOnClickListener(this::onClick);
-        btnOk.setOnClickListener(this::onClick);
+        btnCancel.setOnClickListener(this::onClick);
+        if (btnOk != null) {
+            btnOk.setOnClickListener(this::onClick);
+        }
+
+        if (tvCreateSet != null) {
+            tvCreateSet.setOnClickListener(this::onClick);
+        }
     }
 
     @Override
@@ -68,6 +83,10 @@ public class FragmentDialogHelper extends DialogFragment implements View.OnClick
             case R.id.btn_fg_pass_ok:
                 break;
             case R.id.btn_fg_username_ok:
+                break;
+            case R.id.tv_create_quiz:
+                Intent intent = new Intent(getContext(), CreateStudySetActivity.class);
+                startActivity(intent);
                 break;
             default:
                 getDialog().dismiss();

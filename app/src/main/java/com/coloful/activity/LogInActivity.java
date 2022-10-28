@@ -21,6 +21,7 @@ import com.coloful.adapters.FragmentDialogHelper;
 import com.coloful.constant.Constant;
 import com.coloful.dao.AccountDao;
 import com.coloful.dao.DBHelper;
+import com.coloful.dao.QuizDao;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
 import com.google.gson.Gson;
@@ -105,6 +106,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 tvMsg.setText("Username or password is invalid!");
             } else {
                 DataLocalManager.setAccount(isLogin);
+                // init some quiz
+//                QuizDao.initQuizData(LogInActivity.this);
+
                 Intent main = new Intent(this, MainActivity.class);
                 startActivity(main);
             }

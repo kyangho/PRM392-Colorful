@@ -137,6 +137,9 @@ public class SignUpActivity extends AppCompatActivity {
                     } else {
                         if (accountDao.insertAccount(SignUpActivity.this, account)) {
                             Toast.makeText(SignUpActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                            //init data => create some accounts
+//                            AccountDao.initDataAccount(SignUpActivity.this);
+
                             Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                             startActivity(intent);
                         } else {

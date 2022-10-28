@@ -1,19 +1,14 @@
 package com.coloful.dao;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.coloful.constant.Constant;
-import com.coloful.model.Account;
-
-import java.util.UUID;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "DB_QUIZ";
-    private static final int version = 1;
+    private static final int version = 2;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, version);
@@ -30,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String sqlQuestion = "CREATE TABLE IF NOT EXISTS " + Constant.Question.TABLE_NAME.getValue()
                 + " (id integer primary key autoincrement, question_content TEXT not null," +
-                " quiz_id TEXT not null, correct_answer TEXT not null)";
+                " quiz_id TEXT not null)";
         sqLiteDatabase.execSQL(sqlQuestion);
 
         String sqlAnswer = "CREATE TABLE IF NOT EXISTS " + Constant.Answer.TABLE_NAME.getValue()
@@ -39,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sqlAnswer);
 
         String sqlQuizAccount = "CREATE TABLE IF NOT EXISTS " + Constant.QuizAccount.TABLE_NAME.getValue()
-                + " (quiz_id TEXT not null, account_id TEXT not null)";
+                + " (quiz_id TEXT not null, account_id TEXT not null, last_time_join TEXT not null)";
         sqLiteDatabase.execSQL(sqlQuizAccount);
     }
 
