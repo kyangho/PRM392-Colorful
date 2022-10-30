@@ -80,6 +80,7 @@ public class CreateStudySetActivity extends AppCompatActivity {
                 }
             }
         });
+        //tét
         adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line);
 //        addItem();
