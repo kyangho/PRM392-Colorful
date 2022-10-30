@@ -63,8 +63,7 @@ public class CreateStudySetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 QuizDao db = new QuizDao();
-//                db.addQuiz(CreateStudySetActivity.this, account.getUsername(), edt_create_quiz_title.getText().toString().trim());
-
+                Long qId = db.addQuiz(CreateStudySetActivity.this, account.getUsername(), edt_create_quiz_title.getText().toString().trim());
                 for (int i = 0; i < list.getChildCount(); i++) {
                     if (list.getChildAt(i) instanceof LinearLayoutCompat) {
                         LinearLayoutCompat ll = (LinearLayoutCompat) list.getChildAt(i);
@@ -73,12 +72,7 @@ public class CreateStudySetActivity extends AppCompatActivity {
                                 EditText et = (EditText) ll.getChildAt(j);
                                 if(et.getId() == R.id.txt_question){
                                     Toast.makeText(context, "" + et.getText().toString(), Toast.LENGTH_SHORT).show();
-                                    db.addQuiz(CreateStudySetActivity.this,
-                                            account.getUsername(),
-                                            edt_create_quiz_title.getText().toString().trim(),
-                                            et.getText().toString().trim());
-                                } else if (et.getId() == R.id.txt_answer) {
-                                    Toast.makeText(context, "" + et.getText().toString(), Toast.LENGTH_SHORT).show();
+                                    db.addQuestion(CreateStudySetActivity.this, et.getText().toString().trim(), qId, txt_answer.getText().toString().trim());
                                 }
                             }
                         }
