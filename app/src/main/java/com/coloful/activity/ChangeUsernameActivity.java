@@ -70,7 +70,7 @@ public class ChangeUsernameActivity extends AppCompatActivity implements View.On
                     msg.setText("Username not change, please enter new username if user want to change!");
                 } else {
                     AccountDao accountDao = new AccountDao();
-                    if (accountDao.checkUsernameExisted(ChangeUsernameActivity.this, newUsername)) {
+                    if (accountDao.checkUsernameExisted(ChangeUsernameActivity.this, newUsername) != null) {
                         msg.setText("Username existed. Choose other username!");
                     } else {
                         if (accountDao.updateUsername(ChangeUsernameActivity.this, newUsername, account.getId())) {

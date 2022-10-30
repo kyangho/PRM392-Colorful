@@ -94,6 +94,8 @@ public class GMailSender extends javax.mail.Authenticator {
                         new InternetAddress(recipients));
                 Transport.send(message);
             }
+
+
         } catch (Exception e) {
 
         }

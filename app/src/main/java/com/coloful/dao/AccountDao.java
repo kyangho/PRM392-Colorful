@@ -68,19 +68,25 @@ public class AccountDao {
         }
     }
 
-    public boolean checkUsernameExisted(Context context, String username) {
+    public Account checkUsernameExisted(Context context, String username) {
         db = new DBHelper(context);
         sqLiteDatabase = db.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from account where username = ?",
                 new String[]{username});
         if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            Account acc = new Account();
+            acc.setId(cursor.getInt(0));
+            acc.setUsername(cursor.getString(1));
+            acc.setEmail(cursor.getString(3));
+            acc.setDob(cursor.getString(4));
             cursor.close();
             sqLiteDatabase.close();
-            return true;
+            return acc;
         } else {
             cursor.close();
             sqLiteDatabase.close();
-            return false;
+            return null;
         }
     }
 

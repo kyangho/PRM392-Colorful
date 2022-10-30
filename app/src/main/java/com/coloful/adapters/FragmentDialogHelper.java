@@ -1,11 +1,8 @@
 package com.coloful.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +16,11 @@ import androidx.fragment.app.DialogFragment;
 import com.coloful.R;
 import com.coloful.activity.CreateStudySetActivity;
 import com.coloful.dao.AccountDao;
+import com.coloful.datalocal.DataLocalManager;
+import com.coloful.model.Account;
 
-import javax.mail.Authenticator;
-import javax.mail.Session;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import java.util.Properties;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 public class FragmentDialogHelper extends DialogFragment implements View.OnClickListener {
 
@@ -77,7 +68,7 @@ public class FragmentDialogHelper extends DialogFragment implements View.OnClick
             btnOk = (Button) view.findViewById(R.id.btn_fg_pass_ok);
             btnCancel = (Button) view.findViewById(R.id.btn_fg_pass_cancle);
             editText = view.findViewById(R.id.edt_username);
-//            tvInstruc = view.findViewById(R.id.tv_fgu_instruction);
+            tvInstruc = view.findViewById(R.id.tv_fg_pass_instruc);
         } else if (layoutName.equals("username")) {
             btnOk = (Button) view.findViewById(R.id.btn_fg_username_ok);
             btnCancel = (Button) view.findViewById(R.id.btn_fg_username_cancle);
@@ -103,31 +94,54 @@ public class FragmentDialogHelper extends DialogFragment implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_fg_pass_ok:
+                String username_p = editText.getText().toString();
+                Account account = accountDao.checkUsernameExisted(getContext(), username_p);
+                if (account != null) {
+                    int leftLimit = 48; // numeral '0'
+                    int rightLimit = 122; // letter 'z'
+                    int targetStringLength = 8;
+                    Random random = new Random();
+
+                    String newPass = random.ints(leftLimit, rightLimit + 1)
+                            .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                            .limit(targetStringLength)
+                            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                            .toString();
+                    accountDao.updatePassword(getContext(), newPass, account.getId());
+                    editText.setVisibility(View.INVISIBLE);
+                    tvInstruc.setText("Your new password is: " + newPass + ". Please change your password after login!");
+
+                } else {
+                    tvInstruc.setText("Not found username in system!");
+                }
+                tvInstruc.setTextColor(Color.parseColor("#FF0000"));
                 break;
             case R.id.btn_fg_username_ok:
                 String email = editText.getText().toString();
                 if (accountDao.checkEmailExist(getContext(), email.trim())) {
                     String username = accountDao.getUsernameByEmail(getContext(), email);
                     if (username != null) {
-                        String messageToSend = "We send you your username: " + username;
-                        // TODO Auto-generated method stub
-                        new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    GMailSender sender = new GMailSender(
-                                            "luongnthhe151453@fpt.edu.vn",
-                                            "Hienluong0541");
-//                                    sender.addAttachment(Environment.getExternalStorageDirectory().getPath() + "/image.jpg");
-                                    sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
-                                            "conmuanngangqua200x@gmail.com",
-                                            email);
-                                    tvInstruc.setText("Please check your email, we sent an email for you!");
-                                } catch (Exception e) {
-                                    tvInstruc.setText("System error, please try again!");
-                                }
-                            }
-
-                        }).start();
+//                        String messageToSend = "We send you your username: " + username;
+//                        // TODO Auto-generated method stub
+//                        new Thread(new Runnable() {
+//                            public void run() {
+//                                try {
+//                                    GMailSender sender = new GMailSender(
+//                                            "luongnthhe151453@fpt.edu.vn",
+//                                            "Hienluong0541");
+////                                    sender.addAttachment(Environment.getExternalStorageDirectory().getPath() + "/image.jpg");
+//                                    sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
+//                                            "conmuanngangqua200x@gmail.com",
+//                                            "conmuanngangqua200x@gmail.com");
+//                                    tvInstruc.setText("Please check your email, we sent an email for you!");
+//                                } catch (Exception e) {
+//                                    tvInstruc.setText("System error, please try again!");
+//                                }
+//                            }
+//
+//                        }).start();
+                        editText.setVisibility(View.INVISIBLE);
+                        tvInstruc.setText("Your username is: " + username);
                     }
                 } else {
                     tvInstruc.setText("Not found email in system!");
