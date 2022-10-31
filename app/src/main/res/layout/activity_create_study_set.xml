@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <EditText
@@ -36,18 +37,24 @@
             android:textColor="@color/dark_gray"
             android:textStyle="bold" />
 
-            <ListView
-                android:id="@+id/lv_create_set"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <ImageButton
-            android:id="@+id/img_add_question"
+        <LinearLayout
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+<!--            <include layout="@layout/list_view_create_set_item"></include>-->
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="46dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/white_smoke"
             app:srcCompat="@drawable/ic_baseline_add_circle_24"
-            android:background="@color/white_smoke"
-            android:layout_marginBottom="5dp"/>
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/btn_save_set"
@@ -55,7 +62,5 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
             android:text="Save" />
-
     </LinearLayout>
-
 </ScrollView>

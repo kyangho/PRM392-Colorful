@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.coloful.constant.Constant;
 import com.coloful.model.Account;
@@ -65,92 +66,44 @@ public class QuizDao {
         return null;
     }
 
-    public List<Quiz> getQuizRecently(Context context, Integer accountID) {
-        db = new DBHelper(context);
-        sqLiteDatabase = db.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from quiz_account where account_id =?"
-                , new String[]{accountID.toString()});
-        cursor.moveToFirst();
-        List<Quiz> quizList = new ArrayList<>();
-        QuestionDao questionDao = new QuestionDao();
-        while (!cursor.isAfterLast()) {
-            Quiz q = new Quiz();
-            q.setId(cursor.getInt(0));
-            q.setQuestionList(questionDao.getQuestionForQuiz(context, q.getId()));
-            Date date = new Date(cursor.getString(2));
-            if (date.before(Calendar.getInstance().getTime())) {
-                q.setTimeJoin(date);
-                quizList.add(q);
-            }
-            cursor.moveToNext();
-        }
-        if (!quizList.isEmpty()) {
-            for (Quiz quiz : quizList) {
-                cursor = sqLiteDatabase.rawQuery("select * from quiz where id =?", new String[]{quiz.getId().toString()});
-                cursor.moveToFirst();
-                quiz.setTitle(cursor.getString(1));
-                int author = cursor.getInt(2);
-                quiz.setAuthor(accountDao.getAccountForQuiz(context, author));
-            }
-        }
-
-        return quizList.stream().sorted((o1, o2) -> o2.getTimeJoin()
-                .compareTo(o1.getTimeJoin())).collect(Collectors.toList());
-    }
-
-    public List<Quiz> getYourQuiz(Context context, Account account) {
-        db = new DBHelper(context);
-        sqLiteDatabase = db.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from quiz where author =?"
-                , new String[]{account.getId().toString()});
-        cursor.moveToFirst();
-        List<Quiz> quizList = new ArrayList<>();
-        QuestionDao questionDao = new QuestionDao();
-        while (!cursor.isAfterLast()) {
-            Quiz q = new Quiz();
-            q.setId(cursor.getInt(0));
-            q.setTitle(cursor.getString(1));
-            q.setAuthor(account);
-            q.setQuestionList(questionDao.getQuestionForQuiz(context, q.getId()));
-            quizList.add(q);
-            cursor.moveToNext();
-        }
-        return quizList;
-    }
-
-    public boolean insertQuiz(Context context, Quiz quiz) {
+    public Long addQuiz(Context context, String author, String title) {
         db = new DBHelper(context);
         sqLiteDatabase = db.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Constant.Quiz.TITLE.getValue(), quiz.getTitle());
-        contentValues.put(Constant.Quiz.AUTHOR.getValue(), quiz.getAuthor().getId());
-
-        long quizId = sqLiteDatabase.insert(Constant.Quiz.TABLE_NAME.getValue(), null, contentValues);
-        if (quizId <= 0) {
-            return false;
+        ContentValues cv = new ContentValues();
+        cv.put(Constant.Quiz.TITLE.getValue(), title);
+        cv.put(Constant.Quiz.AUTHOR.getValue(), author);
+        long result = sqLiteDatabase.insert(Constant.Quiz.TABLE_NAME.getValue(), null, cv);
+        if (result == -1) {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         } else {
-            for (Question question : quiz.getQuestionList()) {
-                ContentValues values = new ContentValues();
-                values.put(Constant.Question.Content.getValue(), question.getContent());
-                values.put(Constant.Question.QUIZ_ID.getValue(), quizId);
-                long questionId = sqLiteDatabase.insert(Constant.Question.TABLE_NAME.getValue(), null, values);
+            Toast.makeText(context, "Added success", Toast.LENGTH_SHORT).show();
+            return result;
+        }
+        return null;
+    }
 
-                if (questionId > 0) {
-                    ContentValues values1 = new ContentValues();
-                    values1.put(Constant.Answer.CONTENT.getValue(), question.getAnswer());
-                    values1.put(Constant.Answer.QUES_ID.getValue(), questionId);
-                    long answerId = sqLiteDatabase.insert(Constant.Answer.TABLE_NAME.getValue(), null, values1);
+    public void addQuestion(Context context, String question, Long quiz_id, String answer) {
+        ContentValues values = new ContentValues();
+        values.put(Constant.Question.CONTENT.getValue(), question);
+        values.put(Constant.Question.QUIZ_ID.getValue(), quiz_id);
+        long q_id = sqLiteDatabase.insert(Constant.Question.TABLE_NAME.getValue(), null, values);
+        if (q_id == -1) {
+            Toast.makeText(context, "Add question failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Added success", Toast.LENGTH_SHORT).show();
+            addAnswer(context, answer, q_id);
+        }
+    }
 
-                    if (answerId <= 0) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            }
-            sqLiteDatabase.close();
-            return true;
+    public void addAnswer(Context context, String answer, Long ques_id) {
+        ContentValues values = new ContentValues();
+        values.put(Constant.Answer.CONTENT.getValue(), answer);
+        values.put(Constant.Answer.QUES_ID.getValue(), ques_id);
+        long q_id = sqLiteDatabase.insert(Constant.Answer.TABLE_NAME.getValue(), null, values);
+        if (q_id == -1) {
+            Toast.makeText(context, "Add answer failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Added answer success", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -325,5 +278,94 @@ public class QuizDao {
         quizList.forEach(quiz -> {
             dao.insertQuiz(context, quiz);
         });
+    }
+
+    public List<Quiz> getQuizRecently(Context context, Integer accountID) {
+        db = new DBHelper(context);
+        sqLiteDatabase = db.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from quiz_account where account_id =?"
+                , new String[]{accountID.toString()});
+        cursor.moveToFirst();
+        List<Quiz> quizList = new ArrayList<>();
+        QuestionDao questionDao = new QuestionDao();
+        while (!cursor.isAfterLast()) {
+            Quiz q = new Quiz();
+            q.setId(cursor.getInt(0));
+            q.setQuestionList(questionDao.getQuestionForQuiz(context, q.getId()));
+            Date date = new Date(cursor.getString(2));
+            if (date.before(Calendar.getInstance().getTime())) {
+                q.setTimeJoin(date);
+                quizList.add(q);
+            }
+            cursor.moveToNext();
+        }
+        if (!quizList.isEmpty()) {
+            for (Quiz quiz : quizList) {
+                cursor = sqLiteDatabase.rawQuery("select * from quiz where id =?", new String[]{quiz.getId().toString()});
+                cursor.moveToFirst();
+                quiz.setTitle(cursor.getString(1));
+                int author = cursor.getInt(2);
+                quiz.setAuthor(accountDao.getAccountForQuiz(context, author));
+            }
+        }
+
+        return quizList.stream().sorted((o1, o2) -> o2.getTimeJoin()
+                .compareTo(o1.getTimeJoin())).collect(Collectors.toList());
+    }
+
+    public List<Quiz> getYourQuiz(Context context, Account account) {
+        db = new DBHelper(context);
+        sqLiteDatabase = db.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from quiz where author =?"
+                , new String[]{account.getId().toString()});
+        cursor.moveToFirst();
+        List<Quiz> quizList = new ArrayList<>();
+        QuestionDao questionDao = new QuestionDao();
+        while (!cursor.isAfterLast()) {
+            Quiz q = new Quiz();
+            q.setId(cursor.getInt(0));
+            q.setTitle(cursor.getString(1));
+            q.setAuthor(account);
+            q.setQuestionList(questionDao.getQuestionForQuiz(context, q.getId()));
+            quizList.add(q);
+            cursor.moveToNext();
+        }
+        return quizList;
+    }
+
+    private boolean insertQuiz(Context context, Quiz quiz) {
+        db = new DBHelper(context);
+        sqLiteDatabase = db.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.Quiz.TITLE.getValue(), quiz.getTitle());
+        contentValues.put(Constant.Quiz.AUTHOR.getValue(), quiz.getAuthor().getId());
+
+        long quizId = sqLiteDatabase.insert(Constant.Quiz.TABLE_NAME.getValue(), null, contentValues);
+        if (quizId <= 0) {
+            return false;
+        } else {
+            for (Question question : quiz.getQuestionList()) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.Question.CONTENT.getValue(), question.getContent());
+                values.put(Constant.Question.QUIZ_ID.getValue(), quizId);
+                long questionId = sqLiteDatabase.insert(Constant.Question.TABLE_NAME.getValue(), null, values);
+
+                if (questionId > 0) {
+                    ContentValues values1 = new ContentValues();
+                    values1.put(Constant.Answer.CONTENT.getValue(), question.getAnswer());
+                    values1.put(Constant.Answer.QUES_ID.getValue(), questionId);
+                    long answerId = sqLiteDatabase.insert(Constant.Answer.TABLE_NAME.getValue(), null, values1);
+
+                    if (answerId <= 0) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+            sqLiteDatabase.close();
+            return true;
+        }
     }
 }

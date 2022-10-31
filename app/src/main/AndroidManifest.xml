@@ -27,7 +27,6 @@
             android:name=".activity.StudySetDetailsActivity"
             android:exported="true"
             android:label="@string/study_set_details">
-
         </activity>
         <activity
             android:name=".activity.CreateStudySetActivity"
