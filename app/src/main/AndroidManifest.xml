@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.coloful">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM392_Colorful"
         tools:targetApi="31">
+
         <activity
             android:name=".activity.FlashcardActivity"
-            android:exported="true" />
-
+            android:exported="true"/>
         <activity
             android:name=".activity.LearningActivity"
             android:exported="true"
@@ -26,8 +27,7 @@
         <activity
             android:name=".activity.StudySetDetailsActivity"
             android:exported="true"
-            android:label="@string/study_set_details">
-        </activity>
+            android:label="@string/study_set_details" />
         <activity
             android:name=".activity.CreateStudySetActivity"
             android:exported="false"

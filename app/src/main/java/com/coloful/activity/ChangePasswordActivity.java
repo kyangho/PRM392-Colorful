@@ -83,6 +83,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                     } else if (!newPass.equals(newPassCf)) {
                         msg.setText("New password and password confirm not match!");
                     } else {
+                        accountDao.updatePassword(this, newPass, DataLocalManager.getAccount().getId());
                         msg.setText("Change password success!");
                     }
                 }

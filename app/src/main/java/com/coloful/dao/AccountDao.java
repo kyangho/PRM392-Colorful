@@ -68,19 +68,25 @@ public class AccountDao {
         }
     }
 
-    public boolean checkUsernameExisted(Context context, String username) {
+    public Account checkUsernameExisted(Context context, String username) {
         db = new DBHelper(context);
         sqLiteDatabase = db.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from account where username = ?",
                 new String[]{username});
         if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            Account acc = new Account();
+            acc.setId(cursor.getInt(0));
+            acc.setUsername(cursor.getString(1));
+            acc.setEmail(cursor.getString(3));
+            acc.setDob(cursor.getString(4));
             cursor.close();
             sqLiteDatabase.close();
-            return true;
+            return acc;
         } else {
             cursor.close();
             sqLiteDatabase.close();
-            return false;
+            return null;
         }
     }
 
@@ -171,5 +177,17 @@ public class AccountDao {
             contentValues.put(Constant.Account.DOB.getValue(), account.getDob());
             sqLiteDatabase.insert(Constant.Account.TABLE_NAME.getValue(), null, contentValues);
         });
+    }
+
+    public String getUsernameByEmail(Context context, String email) {
+        db = new DBHelper(context);
+        sqLiteDatabase = db.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select username from account where email =? ", new String[]{email});
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            return cursor.getString(0);
+        }
+
+        return null;
     }
 }
