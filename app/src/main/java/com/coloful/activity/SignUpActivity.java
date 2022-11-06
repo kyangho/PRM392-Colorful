@@ -20,6 +20,7 @@ import com.coloful.model.Account;
 
 import java.util.Calendar;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -127,6 +128,9 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = ed_username.getText().toString();
                 String password = ed_password.getText().toString();
 
+                Pattern patternAccAndPass = Pattern.compile("^\\w{8,32}$");
+                Pattern patternEmail = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+
                 Account account = new Account(null, username, password, email, dob);
 
                 if (dob.equals("") || email.equals("") || username.equals("") || password.equals("")) {
@@ -135,6 +139,18 @@ public class SignUpActivity extends AppCompatActivity {
                     if (accountDao.checkUsernameAndEmail(SignUpActivity.this, account)) {
                         Toast.makeText(SignUpActivity.this, "Username or email was used", Toast.LENGTH_SHORT).show();
                     } else {
+                        if(!patternAccAndPass.matcher(username).find()){
+                            Toast.makeText(SignUpActivity.this, "Username not valid", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(!patternAccAndPass.matcher(password).find()){
+                            Toast.makeText(SignUpActivity.this, "Password not valid", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(!patternEmail.matcher(email).find()){
+                            Toast.makeText(SignUpActivity.this, "Email not valid", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (accountDao.insertAccount(SignUpActivity.this, account)) {
                             Toast.makeText(SignUpActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                             //init data => create some accounts
