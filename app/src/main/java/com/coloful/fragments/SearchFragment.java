@@ -96,7 +96,6 @@ public class SearchFragment extends Fragment {
         QuizDao dao = new QuizDao();
 
         quizList.addAll(dao.allQuiz(getContext(), DataLocalManager.getAccount().getId()));
-        quizList.addAll(dao.allQuiz(getContext(), DataLocalManager.getAccount().getId()));
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
