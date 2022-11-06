@@ -16,6 +16,8 @@ import com.coloful.dao.AccountDao;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
 
+import java.util.regex.Pattern;
+
 public class ChangeEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edtEmailChange;
@@ -67,21 +69,27 @@ public class ChangeEmailActivity extends AppCompatActivity implements View.OnCli
             case R.id.btn_save_change_email:
 
                 String newEmail = edtEmailChange.getText().toString();
-                if (newEmail.equalsIgnoreCase(account.getEmail())) {
-                    msg.setText("Email not change, Please enter new email if you want to change email!");
-                } else {
-                    AccountDao accountDao = new AccountDao();
-                    if (accountDao.checkEmailExist(ChangeEmailActivity.this, newEmail)) {
-                        msg.setText("Email already used!");
+
+                Pattern pattern = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+                if (pattern.matcher(newEmail).find()) {
+                    if (newEmail.equalsIgnoreCase(account.getEmail())) {
+                        msg.setText("Email not change, Please enter new email if you want to change email!");
                     } else {
-                        if (accountDao.updateEmail(ChangeEmailActivity.this, newEmail, account.getId())) {
-                            msg.setText("Change email success!");
-                            account.setEmail(newEmail);
-                            DataLocalManager.setAccount(account);
+                        AccountDao accountDao = new AccountDao();
+                        if (accountDao.checkEmailExist(ChangeEmailActivity.this, newEmail)) {
+                            msg.setText("Email already used!");
                         } else {
-                            msg.setText("Change email failed, please try again!");
+                            if (accountDao.updateEmail(ChangeEmailActivity.this, newEmail, account.getId())) {
+                                msg.setText("Change email success!");
+                                account.setEmail(newEmail);
+                                DataLocalManager.setAccount(account);
+                            } else {
+                                msg.setText("Change email failed, please try again!");
+                            }
                         }
                     }
+                } else {
+                    msg.setText("Email not valid");
                 }
                 break;
 

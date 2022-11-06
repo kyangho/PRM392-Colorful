@@ -16,6 +16,8 @@ import com.coloful.dao.AccountDao;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
 
+import java.util.regex.Pattern;
+
 public class ChangeUsernameActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText edUsername;
@@ -66,24 +68,28 @@ public class ChangeUsernameActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.btn_save_change_username:
                 String newUsername = edUsername.getText().toString();
-                if (newUsername.equalsIgnoreCase(account.getUsername())) {
-                    msg.setText("Username not change, please enter new username if user want to change!");
-                } else {
-                    AccountDao accountDao = new AccountDao();
-                    if (accountDao.checkUsernameExisted(ChangeUsernameActivity.this, newUsername) != null) {
-                        msg.setText("Username existed. Choose other username!");
+                Pattern pattern = Pattern.compile("^\\w{8,32}$");
+                if (pattern.matcher(newUsername).find()) {
+                    if (newUsername.equalsIgnoreCase(account.getUsername())) {
+                        msg.setText("Username not change, please enter new username if user want to change!");
                     } else {
-                        if (accountDao.updateUsername(ChangeUsernameActivity.this, newUsername, account.getId())) {
-                            msg.setText("Change username success!");
-                            account.setUsername(newUsername);
-                            DataLocalManager.setAccount(account);
+                        AccountDao accountDao = new AccountDao();
+                        if (accountDao.checkUsernameExisted(ChangeUsernameActivity.this, newUsername) != null) {
+                            msg.setText("Username existed. Choose other username!");
                         } else {
-                            msg.setText("Change username failed, please try again!");
+                            if (accountDao.updateUsername(ChangeUsernameActivity.this, newUsername, account.getId())) {
+                                msg.setText("Change username success!");
+                                account.setUsername(newUsername);
+                                DataLocalManager.setAccount(account);
+                            } else {
+                                msg.setText("Change username failed, please try again!");
+                            }
                         }
                     }
+                } else {
+                    msg.setText("Username must have 8 to 32 character a-zA-Z0-9");
                 }
                 break;
-
         }
     }
 }
