@@ -16,6 +16,8 @@ import com.coloful.dao.AccountDao;
 import com.coloful.datalocal.DataLocalManager;
 import com.coloful.model.Account;
 
+import java.util.regex.Pattern;
+
 public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText editOldPass;
@@ -73,22 +75,26 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 String oldPass = editOldPass.getText().toString();
                 String newPass = edtNewPassword.getText().toString();
                 String newPassCf = edtPasswordCf.getText().toString();
-                if (oldPass == null || oldPass.trim().length() == 0) {
-                    msg.setText("Please check your old password!");
-                } else if (accountDao.checkAccount(this, new Account(account.getUsername(), oldPass)) == null) {
-                    msg.setText("Old password is wrong, please check again!");
-                } else {
-                    if (newPass == null || newPass.trim().length() == 0 || newPassCf == null || newPassCf.trim().length() == 0) {
-                        msg.setText("New password or password confirm is not empty!");
-                    } else if (!newPass.equals(newPassCf)) {
-                        msg.setText("New password and password confirm not match!");
+                Pattern pattern = Pattern.compile("^\\w{8,32}$");
+                if (pattern.matcher(newPass).find() && pattern.matcher(newPassCf).find()) {
+                    if (oldPass == null || oldPass.trim().length() == 0) {
+                        msg.setText("Please check your old password!");
+                    } else if (accountDao.checkAccount(this, new Account(account.getUsername(), oldPass)) == null) {
+                        msg.setText("Old password is wrong, please check again!");
                     } else {
-                        accountDao.updatePassword(this, newPass, DataLocalManager.getAccount().getId());
-                        msg.setText("Change password success!");
+                        if (newPass == null || newPass.trim().length() == 0 || newPassCf == null || newPassCf.trim().length() == 0) {
+                            msg.setText("New password or password confirm is not empty!");
+                        } else if (!newPass.equals(newPassCf)) {
+                            msg.setText("New password and password confirm not match!");
+                        } else {
+                            accountDao.updatePassword(this, newPass, DataLocalManager.getAccount().getId());
+                            msg.setText("Change password success!");
+                        }
                     }
+                } else {
+                    msg.setText("Password and Re-password must have 8 to 32 character a-zA-Z0-9");
                 }
                 break;
-
         }
     }
 }
